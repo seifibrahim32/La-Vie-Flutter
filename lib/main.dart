@@ -1,21 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-import 'main_page.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-void main() {
-  runApp(const FlutterHackathon());
+import 'views/login_screen.dart';
+
+void main() async {
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.dark,
+    systemNavigationBarColor: Colors.transparent,
+  ));
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  await Future.delayed(const Duration(milliseconds: 3));
+  runApp(const LaVieSplashScreen());
 }
 
-class FlutterHackathon extends StatelessWidget {
-  const FlutterHackathon({Key? key}) : super(key: key);
+class LaVieSplashScreen extends StatelessWidget {
+  const LaVieSplashScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      color: Colors.white,
       debugShowCheckedModeBanner: false,
-      home: MainPage()
+      home: LoginScreen(),
     );
   }
+
 }
 
 
