@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
+import 'views/home_screen.dart';
 import 'views/login_screen.dart';
 
 void main() async {
@@ -25,7 +26,7 @@ class LaVieSplashScreen extends StatelessWidget {
     return const MaterialApp(
       color: Colors.white,
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home: HomeScreen(),
     );
   }
 
