@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_hackathon/views/cart_screen.dart';
 
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-import 'views/home_screen.dart';
-import 'views/login_screen.dart';
 
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -26,7 +25,8 @@ class LaVieSplashScreen extends StatelessWidget {
     return const MaterialApp(
       color: Colors.white,
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: CartScreen(
+      ),
     );
   }
 

@@ -1,3 +1,4 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -9,14 +10,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin{
-  TabController? _tabController;
 
+  TabController? _tabController;
   int choiceIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 6, vsync: this);
+    _tabController = TabController(
+      initialIndex: 0,
+        length: 4, vsync: this);
     FlutterNativeSplash.remove();
   }
 
@@ -25,13 +28,14 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     return DefaultTabController(
       length: 4,
       child: Scaffold(
+        extendBody: true,
         body: Column(
           children:[
             const SizedBox(height:50),
             Center(child: Image.asset('assets/lavie.png',width:102,height:33)),
             const SizedBox(height:40),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal:16),
+              padding: const EdgeInsets.symmetric(horizontal:16.0),
               child: Row(
                   children:[
                 Expanded(
@@ -59,7 +63,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                         contentPadding: const EdgeInsets.all(0.0),
                       ),
                     ),
-                  ) ),
+                  )
+                ),
                 const Spacer(),
                 Container(
                   height: 46,
@@ -80,40 +85,52 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 )
               ]),
             ),
-            const SizedBox(height:26),
-            Material(
-              child: TabBar( indicatorWeight: 0,
-                labelPadding: const EdgeInsets.symmetric(horizontal:10),
-
-                unselectedLabelStyle:
-                Theme.of(context).tabBarTheme.unselectedLabelStyle,
-                indicator: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
+            const SizedBox(height:26.0),
+            TabBar(
+              onTap: (index){
+                setState((){
+                  choiceIndex = index;
+                });
+              },
+              physics: const BouncingScrollPhysics(),
+              padding:EdgeInsets.zero,
+              labelPadding: const EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 0
               ),
-                controller: _tabController,
-                unselectedLabelColor: const Color(0xFF8A8A8A),
-                labelColor: const Color(0xff1abc00),
-                isScrollable: true,
-                tabs: [
-                  Tab(
-                      child:GestureDetector(
-                        onTap : (){
-                          choiceIndex = 0;
-                        },
+              indicatorPadding: const EdgeInsets.all(20),
+              indicatorColor: null,
+              indicatorWeight: 0.1,
+              unselectedLabelStyle:const TextStyle(fontSize: 16.0),
+              controller: _tabController,
+              unselectedLabelColor: const Color(0xFF8A8A8A),
+              labelColor: const Color(0xff1abc00),
+              isScrollable: true,
+              tabs: [
+                GestureDetector(
+                  onTap: (){
+                    setState((){
+                      choiceIndex = 0;
+                      _tabController!.index = 0;
+                    });
+                  },
+                  child: Tab(
+                    height:78,
+                      child:Center(
                         child: Container(
                           decoration: choiceIndex==0?BoxDecoration(
                               boxShadow: const [
-                                BoxShadow(color: Colors.green, spreadRadius: 2,blurRadius: 0),
+                                BoxShadow(color: Colors.green,spreadRadius: 2,blurRadius: 0),
                               ],
-                              color: const Color(0xFFF6F3F3),
+                              color: const Color(0xFFF8F8F8),
                               borderRadius: BorderRadius.circular(4)
                           ):BoxDecoration(
-                              color: const Color(0xFFF6F3F3),
+                              color: const Color(0xBFF6F3F3),
                               borderRadius: BorderRadius.circular(4)
                           ),
                           height:35,
                           width:95,
-                          child: Center(
+                          child: const Center(
                             child: Text('All',
                               style: TextStyle(fontSize: 16,fontWeight:FontWeight.bold),
                             ),
@@ -121,650 +138,194 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                         ),
                       )
                   ),
-                  GestureDetector(
-                      onTap: (){
-                        setState((){
-                          choiceIndex = 1;
-                        });
-                      },
-                    child: Tab(
-                        child:choiceIndex == 1?Container(
-                          decoration: BoxDecoration(
-                              color: const Color(0xFFFFFFFF),
-                            borderRadius: BorderRadius.circular(4)
-                          ),
-                          height:35,
-                          width:95,
-                          child: const Center(
-                            child: Text('Plants',
-                              style: TextStyle(fontSize: 16),),
-                          ),
-                        ):Container(
-                          decoration: BoxDecoration(
-                              color: const Color(0xFFF6F3F3),
+                ),
+                GestureDetector(
+                  onTap: (){
+                    setState((){
+                      choiceIndex = 1;
+                      _tabController!.index = 1;
+                    });
+                  },
+                  child: Tab(
+                      child:Center(
+                        child: Container(
+                          decoration: choiceIndex==1?BoxDecoration(
+                              boxShadow: const [
+                                BoxShadow(color: Colors.green,spreadRadius: 2,blurRadius: 0),
+                                BoxShadow(color: Colors.green,spreadRadius: 2,blurRadius: 0),
+                              ],
+                              color: const Color(0xFFF8F8F8),
+                              borderRadius: BorderRadius.circular(4)
+                          ):BoxDecoration(
+                              color: const Color(0xBFF6F3F3),
                               borderRadius: BorderRadius.circular(4)
                           ),
                           height:35,
                           width:95,
                           child: const Center(
                             child: Text('Plants',
-                              style: TextStyle(fontSize: 16),),
+                              style: TextStyle(fontSize: 16,fontWeight:FontWeight.bold),
+                            ),
                           ),
-                        )
-                    ),
+                        ),
+                      )
                   ),
-                  Tab(
-                      child:GestureDetector(
-                        onTap: (){
-                              setState((){
-                                choiceIndex = 2 ;
-                              });
-                            },
+                ),
+                GestureDetector(
+                  onTap: (){
+                    setState((){
+                      choiceIndex = 2;
+                      _tabController!.index  = 2;
+                    });
+                  },
+                  child: Tab(
+                      child:Center(
                         child: Container(
-                          decoration: BoxDecoration(
-                              color: const Color(0xFFF6F3F3),
+                          decoration: choiceIndex==2?BoxDecoration(
+                              boxShadow: const [
+                                BoxShadow(color: Colors.green,spreadRadius: 2,blurRadius: 0),
+                              ],
+                              color: const Color(0xFFF8F8F8),
+                              borderRadius: BorderRadius.circular(4)
+                          ):BoxDecoration(
+                              color: const Color(0xBFF6F3F3),
                               borderRadius: BorderRadius.circular(4)
                           ),
                           height:35,
                           width:95,
                           child: const Center(
                             child: Text('Seeds',
-                              style: TextStyle(fontSize: 16),),
+                              style: TextStyle(fontSize: 16,fontWeight:FontWeight.bold),
+                            ),
                           ),
                         ),
                       )
                   ),
-                  Tab(
-                      child:GestureDetector(
-                        onTap:(){
-
-                          choiceIndex = 3 ;
-                        },
+                ),
+                GestureDetector(
+                  onTap: (){
+                    setState((){
+                      choiceIndex = 3;
+                      _tabController!.index  = 3;
+                    });
+                  },
+                  child: Tab(
+                      child:Center(
                         child: Container(
-                          decoration: BoxDecoration(
+                          decoration: choiceIndex == 3?BoxDecoration(
                               color: const Color(0xFFF6F3F3),
+                              borderRadius: BorderRadius.circular(4),
+                            boxShadow: const [
+                              BoxShadow(color: Colors.green,spreadRadius: 2,blurRadius: 0),]
+                          ):BoxDecoration(
+                              color: const Color(0xBFF6F3F3),
                               borderRadius: BorderRadius.circular(4)
                           ),
                           height:35,
                           width:95,
-                          child: Center(
+                          child: const Center(
                             child: Text('Tools',
                               style: TextStyle(fontSize: 16),),
                           ),
                         ),
                       )
                   ),
-                ],
-                indicatorSize: TabBarIndicatorSize.tab,
-              ),
+                ),
+              ],
+              indicatorSize: TabBarIndicatorSize.label,
             ),
-
+            const SizedBox(height:26),
             Expanded(
               child: TabBarView(
+                physics: const BouncingScrollPhysics(),
                 controller: _tabController,
                 children: [
-                  Column(
-                    children: [
-                      const SizedBox(height:53.5),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:45.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text('Email',
-                                style:TextStyle(
-                                    color: Color(0xff6f6f6f),
-                                    fontSize: 14
-                                )),
-                            const SizedBox(height:3.8),
-                            TextField(
-                              autofocus: false,
-                              style: const TextStyle(fontSize: 15.0, color: Color(0xFFbdc6cf)),
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.white,
-                                hintText: 'Type your e-mail',
-                                contentPadding:
-                                const EdgeInsets.only(left: 14.0, bottom: 12.0, top: 0.0),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: Color(
-                                      0xFF939393)),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                                disabledBorder: UnderlineInputBorder(
-                                  borderSide: const BorderSide(color: Colors.white),
-                                  borderRadius: BorderRadius.circular(25.7),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: Color(
-                                      0xFF939393)),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height:30.96),
-                            const Text('Password',
-                                style:TextStyle(
-                                    color: Color(0xff6f6f6f),
-                                    fontSize: 14
-                                )),
-                            const SizedBox(height:3.8),
-                            TextField(
-                              autofocus: false,
-                              style: const TextStyle(fontSize: 15.0, color: Color(0xFFbdc6cf)),
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.white,
-                                hintText: 'Type your password',
-                                contentPadding:
-                                const EdgeInsets.only(left: 14.0, bottom: 12.0, top: 0.0),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: Color(
-                                      0xFF939393)),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                                disabledBorder: UnderlineInputBorder(
-                                  borderSide: const BorderSide(color: Colors.white),
-                                  borderRadius: BorderRadius.circular(25.7),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: Color(
-                                      0xFF939393)),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height:36.37),
-                            MaterialButton(
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius:
-                                  BorderRadius.all(Radius.circular(5.0))
-                              ),
-                              textColor:Colors.white,
-                              elevation: 0,
-                              color: const Color(0xFF1ABC00),
-                              onPressed: () {
-
-                              },
-                              child: const SizedBox(
-                                width: double.infinity,
-                                child: Center(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(top:15.0,
-                                        bottom:15.24),
-                                    child: Text('Login',
-                                        style:TextStyle(
-                                            fontSize: 16
-                                        )),
-                                  ),
-                                ),
-                              ),),
-                            const SizedBox(height:33.1),
-                            Stack(
-                              alignment: Alignment.center,
-                              children:  [
-                                const SizedBox(
-                                  width:double.infinity,
-                                  height:8,
-                                  child: Divider(
-
-                                    thickness: 1, // thickness of the line.
-                                    indent: 0, // empty space to the leading edge of divider.
-                                    endIndent: 0, // empty space to the trailing edge of the divider.
-                                    color: Color(0xFF979797),
-                                    height: 20, // The divider's height extent.
-                                  ),
-                                ),
-                                Container(
-                                    color : Colors.white,
-                                    child: const Padding(
-                                      padding: EdgeInsets.symmetric(horizontal:5.0),
-                                      child: Text('or continue with',
-                                          style:TextStyle(
-                                              color: Color(0xFF979797)
-                                          )),
-                                    )
-                                )
-                              ],
-                            ),
-                            const SizedBox(height:22.15),
-                            Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children:[
-                                  InkWell(child: Image.asset('assets/google_login_icon.png',
-                                      width:32.03,height:33.04)),
-                                  const SizedBox(width:31.55),
-                                  InkWell(child: Image.asset('assets/facebook_login_icon.png',
-                                      width:15.79,height:25.95))
-                                ])
-                          ],
-                        ),
+                  Padding(
+                    padding: const EdgeInsets.all(29.0),
+                    child: GridView.builder(
+                      itemCount :10,
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 14,
+                          mainAxisSpacing:74
                       ),
-                    ],
-                  ),Column(
-                    children: [
-                      const SizedBox(height:53.5),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:45.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text('Email',
-                                style:TextStyle(
-                                    color: Color(0xff6f6f6f),
-                                    fontSize: 14
-                                )),
-                            const SizedBox(height:3.8),
-                            TextField(
-                              autofocus: false,
-                              style: const TextStyle(fontSize: 15.0, color: Color(0xFFbdc6cf)),
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.white,
-                                hintText: 'Type your e-mail',
-                                contentPadding:
-                                const EdgeInsets.only(left: 14.0, bottom: 12.0, top: 0.0),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: Color(
-                                      0xFF939393)),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                                disabledBorder: UnderlineInputBorder(
-                                  borderSide: const BorderSide(color: Colors.white),
-                                  borderRadius: BorderRadius.circular(25.7),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: Color(
-                                      0xFF939393)),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height:30.96),
-                            const Text('Password',
-                                style:TextStyle(
-                                    color: Color(0xff6f6f6f),
-                                    fontSize: 14
-                                )),
-                            const SizedBox(height:3.8),
-                            TextField(
-                              autofocus: false,
-                              style: const TextStyle(fontSize: 15.0, color: Color(0xFFbdc6cf)),
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.white,
-                                hintText: 'Type your password',
-                                contentPadding:
-                                const EdgeInsets.only(left: 14.0, bottom: 12.0, top: 0.0),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: Color(
-                                      0xFF939393)),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                                disabledBorder: UnderlineInputBorder(
-                                  borderSide: const BorderSide(color: Colors.white),
-                                  borderRadius: BorderRadius.circular(25.7),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: Color(
-                                      0xFF939393)),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height:36.37),
-                            MaterialButton(
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius:
-                                  BorderRadius.all(Radius.circular(5.0))
-                              ),
-                              textColor:Colors.white,
-                              elevation: 0,
-                              color: const Color(0xFF1ABC00),
-                              onPressed: () {
-
-                              },
-                              child: const SizedBox(
-                                width: double.infinity,
-                                child: Center(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(top:15.0,
-                                        bottom:15.24),
-                                    child: Text('Login',
-                                        style:TextStyle(
-                                            fontSize: 16
-                                        )),
-                                  ),
-                                ),
-                              ),),
-                            const SizedBox(height:33.1),
-                            Stack(
-                              alignment: Alignment.center,
-                              children:  [
-                                const SizedBox(
-                                  width:double.infinity,
-                                  height:8,
-                                  child: Divider(
-
-                                    thickness: 1, // thickness of the line.
-                                    indent: 0, // empty space to the leading edge of divider.
-                                    endIndent: 0, // empty space to the trailing edge of the divider.
-                                    color: Color(0xFF979797),
-                                    height: 20, // The divider's height extent.
-                                  ),
-                                ),
-                                Container(
-                                    color : Colors.white,
-                                    child: const Padding(
-                                      padding: EdgeInsets.symmetric(horizontal:5.0),
-                                      child: Text('or continue with',
-                                          style:TextStyle(
-                                              color: Color(0xFF979797)
-                                          )),
-                                    )
-                                )
-                              ],
-                            ),
-                            const SizedBox(height:22.15),
-                            Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children:[
-                                  InkWell(child: Image.asset('assets/google_login_icon.png',
-                                      width:32.03,height:33.04)),
-                                  const SizedBox(width:31.55),
-                                  InkWell(child: Image.asset('assets/facebook_login_icon.png',
-                                      width:15.79,height:25.95))
-                                ])
-                          ],
-                        ),
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                            color: Colors.blue,
+                            width:90,height:90
+                        );
+                      },),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(29.0),
+                    child: GridView.builder(
+                      itemCount :10,
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 14,
+                          mainAxisSpacing:74
                       ),
-                    ],
-                  ),Column(
-                    children: [
-                      const SizedBox(height:53.5),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:45.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text('Email',
-                                style:TextStyle(
-                                    color: Color(0xff6f6f6f),
-                                    fontSize: 14
-                                )),
-                            const SizedBox(height:3.8),
-                            TextField(
-                              autofocus: false,
-                              style: const TextStyle(fontSize: 15.0, color: Color(0xFFbdc6cf)),
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.white,
-                                hintText: 'Type your e-mail',
-                                contentPadding:
-                                const EdgeInsets.only(left: 14.0, bottom: 12.0, top: 0.0),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: Color(
-                                      0xFF939393)),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                                disabledBorder: UnderlineInputBorder(
-                                  borderSide: const BorderSide(color: Colors.white),
-                                  borderRadius: BorderRadius.circular(25.7),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: Color(
-                                      0xFF939393)),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height:30.96),
-                            const Text('Password',
-                                style:TextStyle(
-                                    color: Color(0xff6f6f6f),
-                                    fontSize: 14
-                                )),
-                            const SizedBox(height:3.8),
-                            TextField(
-                              autofocus: false,
-                              style: const TextStyle(fontSize: 15.0, color: Color(0xFFbdc6cf)),
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.white,
-                                hintText: 'Type your password',
-                                contentPadding:
-                                const EdgeInsets.only(left: 14.0, bottom: 12.0, top: 0.0),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: Color(
-                                      0xFF939393)),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                                disabledBorder: UnderlineInputBorder(
-                                  borderSide: const BorderSide(color: Colors.white),
-                                  borderRadius: BorderRadius.circular(25.7),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: Color(
-                                      0xFF939393)),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height:36.37),
-                            MaterialButton(
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius:
-                                  BorderRadius.all(Radius.circular(5.0))
-                              ),
-                              textColor:Colors.white,
-                              elevation: 0,
-                              color: const Color(0xFF1ABC00),
-                              onPressed: () {
-
-                              },
-                              child: const SizedBox(
-                                width: double.infinity,
-                                child: Center(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(top:15.0,
-                                        bottom:15.24),
-                                    child: Text('Login',
-                                        style:TextStyle(
-                                            fontSize: 16
-                                        )),
-                                  ),
-                                ),
-                              ),),
-                            const SizedBox(height:33.1),
-                            Stack(
-                              alignment: Alignment.center,
-                              children:  [
-                                const SizedBox(
-                                  width:double.infinity,
-                                  height:8,
-                                  child: Divider(
-
-                                    thickness: 1, // thickness of the line.
-                                    indent: 0, // empty space to the leading edge of divider.
-                                    endIndent: 0, // empty space to the trailing edge of the divider.
-                                    color: Color(0xFF979797),
-                                    height: 20, // The divider's height extent.
-                                  ),
-                                ),
-                                Container(
-                                    color : Colors.white,
-                                    child: const Padding(
-                                      padding: EdgeInsets.symmetric(horizontal:5.0),
-                                      child: Text('or continue with',
-                                          style:TextStyle(
-                                              color: Color(0xFF979797)
-                                          )),
-                                    )
-                                )
-                              ],
-                            ),
-                            const SizedBox(height:22.15),
-                            Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children:[
-                                  InkWell(child: Image.asset('assets/google_login_icon.png',
-                                      width:32.03,height:33.04)),
-                                  const SizedBox(width:31.55),
-                                  InkWell(child: Image.asset('assets/facebook_login_icon.png',
-                                      width:15.79,height:25.95))
-                                ])
-                          ],
-                        ),
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                            color: Colors.blue,
+                            width:90,height:90
+                        );
+                      },),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(29.0),
+                    child: GridView.builder(
+                      itemCount :10,
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 14,
+                          mainAxisSpacing:74
                       ),
-                    ],
-                  ),Column(
-                    children: [
-                      const SizedBox(height:53.5),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:45.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text('Email',
-                                style:TextStyle(
-                                    color: Color(0xff6f6f6f),
-                                    fontSize: 14
-                                )),
-                            const SizedBox(height:3.8),
-                            TextField(
-                              autofocus: false,
-                              style: const TextStyle(fontSize: 15.0, color: Color(0xFFbdc6cf)),
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.white,
-                                hintText: 'Type your e-mail',
-                                contentPadding:
-                                const EdgeInsets.only(left: 14.0, bottom: 12.0, top: 0.0),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: Color(
-                                      0xFF939393)),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                                disabledBorder: UnderlineInputBorder(
-                                  borderSide: const BorderSide(color: Colors.white),
-                                  borderRadius: BorderRadius.circular(25.7),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: Color(
-                                      0xFF939393)),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height:30.96),
-                            const Text('Password',
-                                style:TextStyle(
-                                    color: Color(0xff6f6f6f),
-                                    fontSize: 14
-                                )),
-                            const SizedBox(height:3.8),
-                            TextField(
-                              autofocus: false,
-                              style: const TextStyle(fontSize: 15.0, color: Color(0xFFbdc6cf)),
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.white,
-                                hintText: 'Type your password',
-                                contentPadding:
-                                const EdgeInsets.only(left: 14.0, bottom: 12.0, top: 0.0),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: Color(
-                                      0xFF939393)),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                                disabledBorder: UnderlineInputBorder(
-                                  borderSide: const BorderSide(color: Colors.white),
-                                  borderRadius: BorderRadius.circular(25.7),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: Color(
-                                      0xFF939393)),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height:36.37),
-                            MaterialButton(
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius:
-                                  BorderRadius.all(Radius.circular(5.0))
-                              ),
-                              textColor:Colors.white,
-                              elevation: 0,
-                              color: const Color(0xFF1ABC00),
-                              onPressed: () {
-
-                              },
-                              child: const SizedBox(
-                                width: double.infinity,
-                                child: Center(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(top:15.0,
-                                        bottom:15.24),
-                                    child: Text('Login',
-                                        style:TextStyle(
-                                            fontSize: 16
-                                        )),
-                                  ),
-                                ),
-                              ),),
-                            const SizedBox(height:33.1),
-                            Stack(
-                              alignment: Alignment.center,
-                              children:  [
-                                const SizedBox(
-                                  width:double.infinity,
-                                  height:8,
-                                  child: Divider(
-
-                                    thickness: 1, // thickness of the line.
-                                    indent: 0, // empty space to the leading edge of divider.
-                                    endIndent: 0, // empty space to the trailing edge of the divider.
-                                    color: Color(0xFF979797),
-                                    height: 20, // The divider's height extent.
-                                  ),
-                                ),
-                                Container(
-                                    color : Colors.white,
-                                    child: const Padding(
-                                      padding: EdgeInsets.symmetric(horizontal:5.0),
-                                      child: Text('or continue with',
-                                          style:TextStyle(
-                                              color: Color(0xFF979797)
-                                          )),
-                                    )
-                                )
-                              ],
-                            ),
-                            const SizedBox(height:22.15),
-                            Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children:[
-                                  InkWell(child: Image.asset('assets/google_login_icon.png',
-                                      width:32.03,height:33.04)),
-                                  const SizedBox(width:31.55),
-                                  InkWell(child: Image.asset('assets/facebook_login_icon.png',
-                                      width:15.79,height:25.95))
-                                ])
-                          ],
-                        ),
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                            color: Colors.blue,
+                            width:90,height:90
+                        );
+                      },),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(29.0),
+                    child: GridView.builder(
+                      itemCount :10,
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 14,
+                          mainAxisSpacing:74
                       ),
-                    ],
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                            color: Colors.blue,
+                            width:90,height:90
+                        );
+                      },),
                   ),
                 ],
               ),
             ),
           ]
-        )
+        ),
+        bottomNavigationBar: CurvedNavigationBar(
+          animationCurve: Curves.bounceInOut,
+          animationDuration: const Duration(milliseconds: 300),
+          backgroundColor: Colors.transparent,
+          buttonBackgroundColor: Colors.greenAccent,
+          index : 2,
+          items: [
+            Image.asset('assets/bottom_nav_bar_assets/leaf.png') ,
+            Image.asset('assets/bottom_nav_bar_assets/qr.png') ,
+            Image.asset('assets/bottom_nav_bar_assets/home.png',color: Colors.black) ,
+            Image.asset('assets/bottom_nav_bar_assets/notifications.png') ,
+            Image.asset('assets/bottom_nav_bar_assets/user.png') ,
+          ],
+          onTap: (index) {
+
+          },
+        ),
       ),
     );
   }

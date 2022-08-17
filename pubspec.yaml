@@ -29,7 +29,10 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+
+  curved_navigation_bar: ^1.0.3
   dio: ^4.0.6
+
   flutter:
     sdk: flutter
 
@@ -76,6 +79,14 @@ flutter:
     - assets/google_login_icon.png
     - assets/cart_icon.png
     - assets/lavie.png
+    - assets/bottom_nav_bar_assets/home.png
+    - assets/bottom_nav_bar_assets/leaf.png
+    - assets/bottom_nav_bar_assets/notifications.png
+    - assets/bottom_nav_bar_assets/qr.png
+    - assets/bottom_nav_bar_assets/user.png
+    - assets/plant_cart.png
+    - assets/draft_file_empty.png
+
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
