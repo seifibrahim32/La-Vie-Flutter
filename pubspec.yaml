@@ -81,6 +81,8 @@ flutter:
     - assets/google_login_icon.png
     - assets/cart_icon.png
     - assets/lavie.png
+    - assets/points_stars.png
+    - assets/change_option_profile.png
     - assets/bottom_nav_bar_assets/home.png
     - assets/bottom_nav_bar_assets/leaf.png
     - assets/bottom_nav_bar_assets/notifications.png

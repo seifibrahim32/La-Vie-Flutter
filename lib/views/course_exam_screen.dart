@@ -11,23 +11,17 @@ class CourseExamScreen extends StatefulWidget{
   State<CourseExamScreen> createState() => _CourseExamScreenState();
 }
 
-class _CourseExamScreenState extends State<CourseExamScreen> with SingleTickerProviderStateMixin {
+class _CourseExamScreenState extends State<CourseExamScreen>
+    with SingleTickerProviderStateMixin {
 
   int questionIndex = 1;
 
   QuestionsChoice _questionsChoice = QuestionsChoice.two;
 
-  late AnimationController controller;
-  late Animation<Offset> offset;
-
   @override
   void initState() {
     super.initState();
-    controller =
-        AnimationController(vsync: this, duration: const Duration(seconds: 5));
-    offset =
-        Tween<Offset>(begin: Offset.zero, end: const Offset(0.0, 1.0))
-            .animate(controller);
+
   }
   @override
   Widget build(BuildContext context) {
@@ -94,172 +88,168 @@ class _CourseExamScreenState extends State<CourseExamScreen> with SingleTickerPr
                 ),
               ),
               const SizedBox(height:49),
-              SlideTransition(
-                
-                position: offset,
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                  children:[
-                    GestureDetector(
-                      onTap :(){
-                        setState(() {
-                          _questionsChoice  = QuestionsChoice.one;
-                        });
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.only(top: 10
-                            ,bottom: 9),
-                          decoration : BoxDecoration(
-                              border: Border.all(
-                                color: Colors.greenAccent,
-                                width: 2,
-                              ),
-                              borderRadius: BorderRadius.circular(10)
-                          ),
-                          child: Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left:14.92,right:14
-                              ),
-                              child: Row(
-                                  children: [
-                                    const Expanded(
-                                      flex: 2,
-                                      child: Text(
-                                          'The user experience is how the developer '
-                                              'feels about a user.',
-                                          style :TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w500
-                                          )),
-                                    ),
-                                    Transform.scale(
-                                      scale: 1.2,
-                                      child: Radio(
-                                        activeColor: Colors.greenAccent,
-                                        groupValue : _questionsChoice,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            _questionsChoice  = value!;
-                                          });
-                                        },
-                                        value: QuestionsChoice.one,
-                                      ),
-                                    )
-                                  ]
-                              ),
+              Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                children:[
+                  GestureDetector(
+                    onTap :(){
+                      setState(() {
+                        _questionsChoice  = QuestionsChoice.one;
+                      });
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 10
+                          ,bottom: 9),
+                        decoration : BoxDecoration(
+                            border: Border.all(
+                              color: Colors.greenAccent,
+                              width: 2,
                             ),
-                          )
-                      ),
-                    ),
-                    const SizedBox(height:39),
-                    GestureDetector(
-                      onTap :(){
-                        setState(() {
-                          _questionsChoice  = QuestionsChoice.two;
-                        });
-                      },
-                      child: Container(
-                          decoration : BoxDecoration(
-                              border: Border.all(
-                                color: Colors.greenAccent,
-                                width: 2,
-                              ),
-                              borderRadius: BorderRadius.circular(10)
+                            borderRadius: BorderRadius.circular(10)
+                        ),
+                        child: Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left:14.92,right:14
+                            ),
+                            child: Row(
+                                children: [
+                                  const Expanded(
+                                    flex: 2,
+                                    child: Text(
+                                        'The user experience is how the developer '
+                                            'feels about a user.',
+                                        style :TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500
+                                        )),
+                                  ),
+                                  Transform.scale(
+                                    scale: 1.2,
+                                    child: Radio(
+                                      activeColor: Colors.greenAccent,
+                                      groupValue : _questionsChoice,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _questionsChoice  = value!;
+                                        });
+                                      },
+                                      value: QuestionsChoice.one,
+                                    ),
+                                  )
+                                ]
+                            ),
                           ),
-                          child: Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left:14.92,top: 10
-                                  ,bottom: 10,right:14
-                              ),
-                              child: Row(
-                                  children: [
-                                    const Expanded(
-                                      flex: 4,
-                                      child: Text(
-                                          'The user experience is how the user '
-                                              'feels about interacting with or '
-                                              'experiencing a product.',
+                        )
+                    ),
+                  ),
+                  const SizedBox(height:39),
+                  GestureDetector(
+                    onTap :(){
+                      setState(() {
+                        _questionsChoice  = QuestionsChoice.two;
+                      });
+                    },
+                    child: Container(
+                        decoration : BoxDecoration(
+                            border: Border.all(
+                              color: Colors.greenAccent,
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(10)
+                        ),
+                        child: Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left:14.92,top: 10
+                                ,bottom: 10,right:14
+                            ),
+                            child: Row(
+                                children: [
+                                  const Expanded(
+                                    flex: 4,
+                                    child: Text(
+                                        'The user experience is how the user '
+                                            'feels about interacting with or '
+                                            'experiencing a product.',
 
-                                          style :TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w500
-                                          )),
+                                        style :TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500
+                                        )),
+                                  ),
+                                  Transform.scale(
+                                    scale: 1.2,
+                                    child: Radio(
+                                      activeColor: Colors.greenAccent,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _questionsChoice  = value!;
+                                        });
+                                      },
+                                      value: QuestionsChoice.two, groupValue: _questionsChoice,
                                     ),
-                                    Transform.scale(
-                                      scale: 1.2,
-                                      child: Radio(
-                                        activeColor: Colors.greenAccent,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            _questionsChoice  = value!;
-                                          });
-                                        },
-                                        value: QuestionsChoice.two, groupValue: _questionsChoice,
-                                      ),
-                                    )
-                                  ]
-                              ),
+                                  )
+                                ]
                             ),
-                          )
-                      ),
-                    ),
-                    const SizedBox(height:40),
-                    GestureDetector(
-                      onTap :(){
-                        setState(() {
-                          _questionsChoice  = QuestionsChoice.three;
-                        });
-                      },
-                      child: Container(
-                          decoration : BoxDecoration(
-                              border: Border.all(
-                                color: Colors.greenAccent,
-                                width: 2,
-                              ),
-                              borderRadius: BorderRadius.circular(10)
                           ),
-                          child: Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left:14.92,top: 10
-                                  ,bottom: 9,right:14
-                              ),
-                              child: Row(
-                                  children: [
-                                    const Expanded(
-                                      flex: 4,
-                                      child: Text(
-                                          'The user experience is the '
-                                              'attitude the UX designer '
-                                              'has about a product.',
-                                          style : TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w500
-                                          )),
-                                    ),
-                                    Transform.scale(
-                                      scale: 1.2,
-                                      child: Radio(
-                                        activeColor: Colors.greenAccent,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            _questionsChoice  = value!;
-                                          });
-                                        },
-                                        value: QuestionsChoice.three, groupValue: _questionsChoice,
-                                      ),
-                                    )
-                                  ]
-                              ),
-                            ),
-                          )
-                      ),
+                        )
                     ),
-                  ]
-                ),
+                  ),
+                  const SizedBox(height:40),
+                  GestureDetector(
+                    onTap :(){
+                      setState(() {
+                        _questionsChoice  = QuestionsChoice.three;
+                      });
+                    },
+                    child: Container(
+                        decoration : BoxDecoration(
+                            border: Border.all(
+                              color: Colors.greenAccent,
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(10)
+                        ),
+                        child: Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left:14.92,top: 10
+                                ,bottom: 9,right:14
+                            ),
+                            child: Row(
+                                children: [
+                                  const Expanded(
+                                    flex: 4,
+                                    child: Text(
+                                        'The user experience is the '
+                                            'attitude the UX designer '
+                                            'has about a product.',
+                                        style : TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500
+                                        )),
+                                  ),
+                                  Transform.scale(
+                                    scale: 1.2,
+                                    child: Radio(
+                                      activeColor: Colors.greenAccent,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _questionsChoice  = value!;
+                                        });
+                                      },
+                                      value: QuestionsChoice.three, groupValue: _questionsChoice,
+                                    ),
+                                  )
+                                ]
+                            ),
+                          ),
+                        )
+                    ),
+                  ),
+                ]
               ),
               const SizedBox(height:91),
               Row(
@@ -319,15 +309,6 @@ class _CourseExamScreenState extends State<CourseExamScreen> with SingleTickerPr
                         if(questionIndex != 10) {
                           setState(() {
                             questionIndex++;
-                            switch (controller.status) {
-                              case AnimationStatus.completed:
-                                controller.forward();
-                                break;
-                              case AnimationStatus.dismissed:
-                                controller.reverse();
-                                break;
-                              default:
-                            }
                           });
                         }
                       },
