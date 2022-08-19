@@ -25,49 +25,6 @@ class _CartScreenState extends State<CartScreen> {
     FlutterNativeSplash.remove();
     return items.isNotEmpty?
     Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-          elevation: 0.2,
-          backgroundColor: Colors.white,
-          title: const Text('My Cart',
-            style: TextStyle(
-                color: Colors.black,
-              fontWeight: FontWeight.w700,
-              fontSize: 25
-            ),
-          )),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal:24.0),
-        child: Center(
-          child: Column(
-            mainAxisAlignment:  MainAxisAlignment.start,
-            children:[
-              const SizedBox(height:100),
-              Image.asset('assets/draft_file_empty.png'),
-              const SizedBox(height:40),
-              const Text('Your cart is empty',
-                style : TextStyle(
-                    fontSize: 24,
-                  fontWeight: FontWeight.bold
-                )
-              ),
-              const SizedBox(height:12),
-              const Text('Sorry, the keyword you entered cannot be\nfound,'
-                  ' please check again or search with\nanother keyword.',
-                  textAlign: TextAlign.center,
-                  style : TextStyle(
-                    color: Color(0x9C212121),
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400
-                  )
-              ),
-
-            ],
-          ),
-        ),
-      ),
-    ):Scaffold(
-
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -135,75 +92,75 @@ class _CartScreenState extends State<CartScreen> {
                                     child: Column(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         crossAxisAlignment: CrossAxisAlignment.start,
-                                      children :  [
-                                        const Text('Cactus plant Alvera',
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 1,
-                                        style : TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          fontSize : 18
-                                        )),
-                                        const SizedBox(height:16),
-                                        const Text('200 EGP',
-                                            style : TextStyle(
-                                              color: Colors.greenAccent,
-                                                fontSize : 15.23
-                                            )),
-                                        const SizedBox(height:19),
-                                        Expanded(
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Container(
-                                                decoration:BoxDecoration(
-                                                  borderRadius : BorderRadius.circular(10),
-                                                  color: const Color(0xFFF8F8F8)
-                                                ),
-                                                child: Expanded(
-                                                  child: Padding(
-                                                    padding: const EdgeInsets.only(
-                                                        left:8.0,
-                                                        right:8.0,
-                                                        top:8.47,
-                                                        bottom:10.47
-                                                    ),
-                                                    child: Row(
-                                                      children: const [
-                                                        Icon(
-                                                            Icons.remove,
-                                                            color : Colors.greenAccent,
-                                                            size: 16.14
-                                                        ),
-                                                        SizedBox(width:14),
-                                                        Text('1',
-                                                        style: TextStyle(
-                                                          fontSize: 13,
-                                                          fontWeight: FontWeight.w500
-                                                        )),
-                                                        SizedBox(width:13),
-                                                        Icon(Icons.add,
-                                                            color : Colors.greenAccent,
-                                                        size: 16.14),
-                                                      ]
+                                        children :  [
+                                          const Text('Cactus plant Alvera',
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              style : TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize : 18
+                                              )),
+                                          const SizedBox(height:16),
+                                          const Text('200 EGP',
+                                              style : TextStyle(
+                                                  color: Colors.greenAccent,
+                                                  fontSize : 15.23
+                                              )),
+                                          const SizedBox(height:19),
+                                          Expanded(
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Container(
+                                                  decoration:BoxDecoration(
+                                                      borderRadius : BorderRadius.circular(10),
+                                                      color: const Color(0xFFF8F8F8)
+                                                  ),
+                                                  child: Expanded(
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.only(
+                                                          left:8.0,
+                                                          right:8.0,
+                                                          top:8.47,
+                                                          bottom:10.47
+                                                      ),
+                                                      child: Row(
+                                                          children: const [
+                                                            Icon(
+                                                                Icons.remove,
+                                                                color : Colors.greenAccent,
+                                                                size: 16.14
+                                                            ),
+                                                            SizedBox(width:14),
+                                                            Text('1',
+                                                                style: TextStyle(
+                                                                    fontSize: 13,
+                                                                    fontWeight: FontWeight.w500
+                                                                )),
+                                                            SizedBox(width:13),
+                                                            Icon(Icons.add,
+                                                                color : Colors.greenAccent,
+                                                                size: 16.14),
+                                                          ]
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                              const Spacer(),
-                                              SizedBox(
-                                                width:20,
-                                                height:24,
-                                                child: Image.asset(
-                                                    'assets/trash_icon.png',
-                                                    color : Colors.greenAccent,
-                                                    width: 20,
-                                                    height:24
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        )
-                                      ]
+                                                const Spacer(),
+                                                SizedBox(
+                                                  width:20,
+                                                  height:24,
+                                                  child: Image.asset(
+                                                      'assets/trash_icon.png',
+                                                      color : Colors.greenAccent,
+                                                      width: 20,
+                                                      height:24
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          )
+                                        ]
                                     ),
                                   ),
                                 )
@@ -242,7 +199,7 @@ class _CartScreenState extends State<CartScreen> {
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 20,
-                              fontWeight: FontWeight.w600
+                                fontWeight: FontWeight.w600
                             ),),
                           Spacer(),
                           Text('300,000 Egp',
@@ -278,6 +235,49 @@ class _CartScreenState extends State<CartScreen> {
             ),
           )
         ],
+      ),
+    )
+    : Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+          elevation: 0.2,
+          backgroundColor: Colors.white,
+          title: const Text('My Cart',
+            style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.w700,
+                fontSize: 25
+            ),
+          )),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal:24.0),
+        child: Center(
+          child: Column(
+            mainAxisAlignment:  MainAxisAlignment.start,
+            children:[
+              const SizedBox(height:100),
+              Image.asset('assets/draft_file_empty.png'),
+              const SizedBox(height:40),
+              const Text('Your cart is empty',
+                  style : TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold
+                  )
+              ),
+              const SizedBox(height:12),
+              const Text('Sorry, the keyword you entered cannot be\nfound,'
+                  ' please check again or search with\nanother keyword.',
+                  textAlign: TextAlign.center,
+                  style : TextStyle(
+                      color: Color(0x9C212121),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400
+                  )
+              ),
+
+            ],
+          ),
+        ),
       ),
     );
   }

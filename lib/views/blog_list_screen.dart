@@ -8,7 +8,6 @@ class BlogListScreen extends StatelessWidget{
   Widget build(BuildContext context) {
     return Scaffold(
       body:SingleChildScrollView(
-        physics : const BouncingScrollPhysics(),
         child: Column(
           children:[
             Container(
@@ -16,7 +15,52 @@ class BlogListScreen extends StatelessWidget{
               height:299,
               color: Colors.blue,
             ),
-
+            const SizedBox(height:37),
+            SingleChildScrollView(
+              child: Row(
+                  children:
+                    [
+                    const SizedBox(width:25),
+                    const Text('5 Simple Tips to treat plants',
+                        overflow: TextOverflow.ellipsis,
+                        style : TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize : 23
+                        )
+                    )
+                  ]
+              ),
+            ),
+            Container(
+              margin : const EdgeInsets.only(
+                  left:29,right:58,top:22,bottom:144
+              ),
+              child: Text('leaf, in botany, any usually flattened'
+                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                  ' green outgrowth from the stem of  ',
+                  style : TextStyle(
+                    color: Color(0xC77D7B7B),
+                      fontWeight: FontWeight.w400,
+                      fontSize : 16
+                  )
+              ),
+            )
           ]
         ),
       )

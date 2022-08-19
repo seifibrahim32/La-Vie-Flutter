@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-import '../models/cart_model.dart';
 
 class BlogsScreen extends StatefulWidget {
   const BlogsScreen({Key? key}) : super(key: key);
@@ -86,13 +85,13 @@ class _BlogsScreenState extends State<BlogsScreen> {
                                   child: Column(
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       crossAxisAlignment: CrossAxisAlignment.start,
-                                      children :  [
-                                        Container(
+                                      children :  const [
+                                        SizedBox(
                                           width:117,
                                           height:25,
                                           child: Align(
                                             alignment: Alignment.bottomLeft,
-                                            child: const Text('2 days ago',
+                                            child: Text('2 days ago',
                                                 style : TextStyle(
                                                     color: Colors.greenAccent,
                                                     fontSize : 13,
@@ -100,14 +99,14 @@ class _BlogsScreenState extends State<BlogsScreen> {
                                                 )),
                                           ),
                                         ),
-                                        const SizedBox(height:14),
-                                        const Text('5 Tips to treat plants',
+                                        SizedBox(height:14),
+                                        Text('5 Tips to treat plants',
                                             overflow: TextOverflow.ellipsis,
                                             style : TextStyle(
                                                 fontWeight: FontWeight.w600,
                                                 fontSize : 17
                                             )),
-                                        const SizedBox(height:19),
+                                        SizedBox(height:19),
                                         Expanded(
                                           child: Text('leaf, in botany, any usually leaf, in botany, any usually ',
                                           style: TextStyle(

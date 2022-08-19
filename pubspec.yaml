@@ -90,7 +90,9 @@ flutter:
     - assets/bottom_nav_bar_assets/user.png
     - assets/plant_cart.png
     - assets/draft_file_empty.png
+    - assets/likes_button.png
     - assets/trash_icon.png
+    - assets/filter_search_icon.png
 
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

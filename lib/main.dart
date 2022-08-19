@@ -8,6 +8,8 @@ import 'package:flutter_hackathon/views/profile_screen.dart';
 
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
+import 'views/search_not_found.dart';
+
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -28,7 +30,7 @@ class LaVieSplashScreen extends StatelessWidget {
     return const MaterialApp(
       color: Colors.white,
       debugShowCheckedModeBanner: false,
-      home: BlogListScreen(),
+      home: SearchNotFound(),
     );
   }
 }
