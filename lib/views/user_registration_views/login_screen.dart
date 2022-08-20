@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-import 'package:dio/dio.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -15,11 +14,9 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
 
   TabController? _tabController;
 
-  static late Dio _dio;
-
   late TextEditingController? _email;
   late TextEditingController? _password;
-  late TextEditingController? _confirm_password;
+  late TextEditingController? _confirmPassword;
   late TextEditingController? _firstname;
   late TextEditingController? _lastname;
   @override
@@ -31,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     _lastname = TextEditingController();
     _firstname = TextEditingController();
     _password = TextEditingController();
-    _confirm_password = TextEditingController();
+    _confirmPassword = TextEditingController();
   }
 
   @override
@@ -198,7 +195,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                         )),
                                     const SizedBox(height:3.8),
                                     TextField(
-                                      controller: _confirm_password,
+                                      controller: _confirmPassword,
                                       autofocus: false,
                                       style: const TextStyle(fontSize: 15.0, color: Color(0xFFbdc6cf)),
                                       decoration: InputDecoration(
@@ -280,11 +277,15 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                         crossAxisAlignment: CrossAxisAlignment.center,
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children:[
-                                          InkWell(child: Image.asset('assets/google_login_icon.png',
-                                              width:32.03,height:33.04)),
+                                          InkWell(
+                                              child: Image.asset('assets/google_login_icon.png',
+                                              width:32.03,height:33.04)
+                                          ),
                                           const SizedBox(width:31.55),
-                                          InkWell(child: Image.asset('assets/facebook_login_icon.png',
-                                              width:15.79,height:25.95))
+                                          InkWell(
+                                              child: Image.asset('assets/facebook_login_icon.png',
+                                              width:15.79,height:25.95)
+                                          )
                                         ]),
                                     const SizedBox(height:22.15),
                                   ],
@@ -424,7 +425,8 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                         crossAxisAlignment: CrossAxisAlignment.center,
                                       mainAxisAlignment: MainAxisAlignment.center,
                                         children:[
-                                      InkWell(child: Image.asset('assets/google_login_icon.png',
+                                      InkWell(
+                                          child: Image.asset('assets/google_login_icon.png',
                                       width:32.03,height:33.04)),
                                       const SizedBox(width:31.55),
                                       InkWell(child: Image.asset('assets/facebook_login_icon.png',

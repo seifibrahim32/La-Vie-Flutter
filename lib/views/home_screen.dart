@@ -9,7 +9,8 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin{
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin{
 
   TabController? _tabController;
   int choiceIndex = 0;
@@ -19,7 +20,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     super.initState();
     _tabController = TabController(
       initialIndex: 0,
-        length: 4, vsync: this);
+        length: 4, vsync: this
+    );
     FlutterNativeSplash.remove();
   }
 
@@ -149,10 +151,12 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   child: Tab(
                       child:Center(
                         child: Container(
-                          decoration: choiceIndex==1?BoxDecoration(
+                          decoration: choiceIndex==1? BoxDecoration(
                               boxShadow: const [
-                                BoxShadow(color: Colors.green,spreadRadius: 2,blurRadius: 0),
-                                BoxShadow(color: Colors.green,spreadRadius: 2,blurRadius: 0),
+                                BoxShadow(color: Colors.green,
+                                    spreadRadius: 2,blurRadius: 0),
+                                BoxShadow(color: Colors.green,
+                                    spreadRadius: 2,blurRadius: 0),
                               ],
                               color: const Color(0xFFF8F8F8),
                               borderRadius: BorderRadius.circular(4)
@@ -183,7 +187,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                         child: Container(
                           decoration: choiceIndex==2?BoxDecoration(
                               boxShadow: const [
-                                BoxShadow(color: Colors.green,spreadRadius: 2,blurRadius: 0),
+                                BoxShadow(color: Colors.green,spreadRadius: 2
+                                    ,blurRadius: 0),
                               ],
                               color: const Color(0xFFF8F8F8),
                               borderRadius: BorderRadius.circular(4)
@@ -195,7 +200,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                           width:95,
                           child: const Center(
                             child: Text('Seeds',
-                              style: TextStyle(fontSize: 16,fontWeight:FontWeight.bold),
+                              style: TextStyle(fontSize: 16,
+                                  fontWeight:FontWeight.bold),
                             ),
                           ),
                         ),
@@ -234,75 +240,152 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               ],
               indicatorSize: TabBarIndicatorSize.label,
             ),
-            const SizedBox(height:26),
             Expanded(
               child: TabBarView(
                 physics: const BouncingScrollPhysics(),
                 controller: _tabController,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(29.0),
+                    padding: const EdgeInsets.symmetric(horizontal:29.0,
+                        vertical:23),
                     child: GridView.builder(
                       itemCount :10,
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           crossAxisSpacing: 14,
-                          mainAxisSpacing:74
+                          mainAxisSpacing:74,
+                          mainAxisExtent:227
                       ),
                       itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                            color: Colors.blue,
-                            width:90,height:90
+                        return Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            Expanded(
+                              child: Container(
+                                  padding: const EdgeInsets.only(
+                                      left:13.0,
+                                      right:11,
+                                      top:27,
+                                      bottom: 20
+                                  ),
+                                  width:176,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    color: Colors.white,
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        offset: Offset(0, 2),
+                                        spreadRadius: 1,
+                                        color: Color(0x1A5A5959),
+                                        blurRadius: 0.8,
+                                      ),
+                                    ],
+                                  ),
+                                  child: Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                            children: [
+                                              GestureDetector(
+                                                child: Container(
+                                                  width:16,
+                                                  height:16,
+                                                  color: Colors.grey.withOpacity(0.3),
+                                                  child: Icon(
+                                                      Icons.remove,
+                                                      color : Colors.grey ,
+                                                      size: 16.14
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(width:13),
+                                              Text('1',
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight: FontWeight.w600
+                                                  )
+                                              ),
+                                              SizedBox(width:13),
+                                              GestureDetector(
+                                                child: Container(
+                                                  width:16,
+                                                  height:16,
+                                                  color: Colors.grey.withOpacity(0.3),
+                                                  child: Icon(
+                                                      Icons.add,
+                                                      color : Colors.grey,
+                                                      size: 16.14
+                                                  ),
+                                                ),
+                                              ),
+                                            ]
+                                        ),
+                                        const SizedBox(height:83),
+                                        Expanded(
+                                          child: Column(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                              children:[
+                                                Flexible(
+                                                  child: Text('GARDENIA PLANET',
+                                                      style:TextStyle(
+                                                          fontSize: 14,
+                                                        fontWeight: FontWeight.w500
+                                                      )
+                                                  ),
+                                                ),
+                                                Text('70 EGP',
+                                                    style:TextStyle(
+                                                        fontSize: 12,
+                                                      fontWeight: FontWeight.w500
+                                                    )
+                                                ),
+                                                MaterialButton(
+                                                  height: 35,
+                                                  minWidth: 148,
+                                                  shape: const RoundedRectangleBorder(
+                                                      borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(5.0)
+                                                      )
+                                                  ),
+                                                  textColor:   Colors.white,
+                                                  elevation: 0,
+                                                  color: Color(0xFF1ABC00),
+                                                  onPressed: () {
+                                                  },
+                                                  child: const SizedBox(
+                                                    child: Text('Add To Cart',
+                                                        style:TextStyle(
+                                                            fontSize: 16
+                                                        )),
+                                                  ),
+                                                ),
+                                              ]
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                              ),
+                            ),
+                            Positioned(
+                                top : -30,
+                                left:15,
+                                child: Image.asset(
+                                    'assets/plant_home_demo.png'
+                                    ,scale:0.7
+                                )
+                            ),
+                          ],
                         );
-                      },),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(29.0),
-                    child: GridView.builder(
-                      itemCount :10,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 14,
-                          mainAxisSpacing:74
-                      ),
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                            color: Colors.blue,
-                            width:90,height:90
-                        );
-                      },),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(29.0),
-                    child: GridView.builder(
-                      itemCount :10,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 14,
-                          mainAxisSpacing:74
-                      ),
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                            color: Colors.blue,
-                            width:90,height:90
-                        );
-                      },),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(29.0),
-                    child: GridView.builder(
-                      itemCount :10,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 14,
-                          mainAxisSpacing:74
-                      ),
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                            color: Colors.blue,
-                            width:90,height:90
-                        );
-                      },),
+                      },
+                    ),
                   ),
                 ],
               ),

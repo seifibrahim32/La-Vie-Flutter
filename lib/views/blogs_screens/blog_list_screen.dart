@@ -18,10 +18,9 @@ class BlogListScreen extends StatelessWidget{
             const SizedBox(height:37),
             SingleChildScrollView(
               child: Row(
-                  children:
-                    [
-                    const SizedBox(width:25),
-                    const Text('5 Simple Tips to treat plants',
+                  children: const [
+                      SizedBox(width:25),
+                      Text('5 Simple Tips to treat plants',
                         overflow: TextOverflow.ellipsis,
                         style : TextStyle(
                             fontWeight: FontWeight.w600,
@@ -35,7 +34,7 @@ class BlogListScreen extends StatelessWidget{
               margin : const EdgeInsets.only(
                   left:29,right:58,top:22,bottom:144
               ),
-              child: Text('leaf, in botany, any usually flattened'
+              child: const Text('leaf, in botany, any usually flattened'
                   ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
                   ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
                   ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
