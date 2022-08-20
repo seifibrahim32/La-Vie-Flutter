@@ -39,6 +39,8 @@ class QRDetails extends StatelessWidget{
                       height: 87
                   ),
                   Column(
+
+
                       mainAxisAlignment: MainAxisAlignment.end,
                     children:[
                       Row(
