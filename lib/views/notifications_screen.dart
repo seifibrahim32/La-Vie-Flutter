@@ -17,7 +17,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
         elevation: 0,
         backgroundColor: Colors.white,
         centerTitle : true,
-        title: Text('Notifications',
+        title: const Text('Notifications',
           style: TextStyle(
             color: Colors.black,
           )
@@ -29,7 +29,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
-                CircleAvatar(
+                const CircleAvatar(
               radius:32,
               backgroundColor: Colors.black,
               backgroundImage: NetworkImage(
@@ -37,18 +37,18 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       'uploads/2022/02/rihanna-2000x1270-1.jpg'
               ),
             ),
-                SizedBox(width:16),
+                const SizedBox(width:16),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Joy Arnold left 6 '
+                    const Text('Joy Arnold left 6 '
                         'comments on Your Post',
                         style:TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w500
                         )
                     ),
-                    SizedBox(height:4),
+                    const SizedBox(height:4),
                     Text('Yesterday at 11:42 PM',
                         style: TextStyle(
                             color: Colors.grey[300],
@@ -69,7 +69,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   radius:32,
                   backgroundColor: Colors.black,
                   backgroundImage: NetworkImage(
@@ -77,13 +77,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           'uploads/2022/02/rihanna-2000x1270-1.jpg'
                   ),
                 ),
-                SizedBox(width:16),
+                const SizedBox(width:16),
                 Flexible(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Dennis Nedry commented on '
+                        const Text('Dennis Nedry commented on '
                             'Isla Nublar SOC2 compliance report,    ',
                              softWrap: true,
                             maxLines: 13,
@@ -93,7 +93,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                 fontWeight: FontWeight.w500
                             )
                         ),
-                        SizedBox(height:4),
+                        const SizedBox(height:4),
                         Text('Yesterday at 11:42 PM',
                             style: TextStyle(
                                 color: Colors.grey[300],
@@ -115,7 +115,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   radius:32,
                   backgroundColor: Colors.black,
                   backgroundImage: NetworkImage(
@@ -123,13 +123,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           'uploads/2022/02/rihanna-2000x1270-1.jpg'
                   ),
                 ),
-                SizedBox(width:16),
+                const SizedBox(width:16),
                 Flexible(
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('John Hammond created Isla Nublar SOC2 compliance report  ',
+                        const Text('John Hammond created Isla Nublar SOC2 compliance report  ',
                             softWrap: true,
                             maxLines: 13,
                             overflow: TextOverflow.ellipsis,
@@ -138,7 +138,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                 fontWeight: FontWeight.w500
                             )
                         ),
-                        SizedBox(height:4),
+                        const SizedBox(height:4),
                         Text('Yesterday at 11:42 PM',
                             style: TextStyle(
                                 color: Colors.grey[300],
