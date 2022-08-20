@@ -38,86 +38,200 @@ class QRDetails extends StatelessWidget{
                   const SizedBox(
                       height: 87
                   ),
-                  Column(
-
-
-                      mainAxisAlignment: MainAxisAlignment.end,
-                    children:[
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const SizedBox(width:43),
+                      Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                         children:[
-                          Container(
-                              width:60,
-                              decoration: BoxDecoration(
-                                  color: Colors.black.withOpacity(0.3)
-                              ),
-                              height:60
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children:[
+                                Container(
+                                    width:60,
+                                    decoration: BoxDecoration(
+                                        color: Colors.black.withOpacity(0.3)
+                                    ),
+                                    height:60,
+                                  child: Image.asset('assets/sunlight_icon.png',
+                                    color: const Color(0xFF979797),)
+                                ),
+                                const SizedBox(
+                                    width:24
+                                ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Align(
+                                        alignment: Alignment.topRight,
+                                        child: Row(
+                                          children:   [
+                                            const Text('78',
+                                                style: TextStyle(
+                                                    fontSize: 22,
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.w600
+                                                )
+                                            ),
+                                            Container(
+                                              margin: const EdgeInsets.only(
+                                                bottom: 14
+                                              ),
+                                              child: const Text('%',
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: Colors.white,
+                                                      fontWeight: FontWeight.w500
+                                                  )
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                    ),
+                                    const Text('Sun light',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400
+                                        )),
+                                  ],
+                                )
+                              ]
                           ),
-                          SizedBox(
-                            width:24
+                          const SizedBox(height:29),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children:[
+                                Container(
+                                    width:60,
+                                    decoration: BoxDecoration(
+                                        color: Colors.black.withOpacity(0.3)
+                                    ),
+                                    height:60,
+                                    child: Image.asset('assets/water_capacity_icon.png',
+                                      color: const Color(0xFF979797),)
+                                ),
+                                const SizedBox(
+                                    width:24
+                                ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Align(
+                                        alignment: Alignment.topRight,
+                                        child: Row(
+                                          children: [
+                                            const Text('10',
+                                                style: TextStyle(
+                                                    fontSize: 22,
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.w600
+                                                )
+                                            ),
+                                            Container(
+                                              margin: const EdgeInsets.only(
+                                                  bottom: 14
+                                              ),
+                                              child: const Text('%',
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: Colors.white,
+                                                      fontWeight: FontWeight.w500
+                                                  )
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                    ),
+                                    const Text('Water Capacity',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400
+                                        )),
+                                  ],
+                                )
+                              ]
                           ),
-                          Column(
-                            children: [
-                              Text('78'),
-                              Text('Sun light'),
-                            ],
-                          )
+                          const SizedBox(height:15),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children:[
+                                Container(
+                                    width:60,
+                                    decoration: BoxDecoration(
+                                        color: Colors.black.withOpacity(0.3)
+                                    ),
+                                    height:60,
+                                    child: Image.asset('assets/temperature_icon.png',
+                                    color: const Color(0xFF979797),)
+                                ),
+                                const SizedBox(
+                                    width:24
+                                ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Align(
+                                        alignment: Alignment.topRight,
+                                        child: Row(
+                                          children: [
+                                            const Text('29',
+                                                style: TextStyle(
+                                                    fontSize: 22,
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.w600
+                                                )
+                                            ),
+                                            Container(
+                                              margin: const EdgeInsets.only(
+                                                  bottom: 14
+                                              ),
+                                              child: const Text('°',
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: Colors.white,
+                                                      fontWeight: FontWeight.w500
+                                                  )
+                                              ),
+                                            ),
+                                            Container(
+                                              margin: const EdgeInsets.only(
+                                                  top: 2
+                                              ),
+                                              child: const Text('C',
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: Colors.white,
+                                                      fontWeight: FontWeight.w500
+                                                  )
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                    ),
+                                    const Text('Temperature',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400
+                                        )),
+                                  ],
+                                )
+                              ]
+                          ),
                         ]
                       ),
-                      const SizedBox(height:29),
-                      Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children:[
-                            Container(
-                                width:60,
-                                decoration: BoxDecoration(
-                                    color: Colors.black.withOpacity(0.3)
-                                ),
-                                height:60
-                            ),
-                            SizedBox(
-                                width:24
-                            ),
-                            Column(
-                              children: [
-                                Text('78'),
-                                Text('Sun light'),
-                              ],
-                            )
-                          ]
-                      ),
-                      const SizedBox(height:15),
-                      Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children:[
-                            Container(
-                                width:60,
-                                decoration: BoxDecoration(
-                                    color: Colors.black.withOpacity(0.3)
-                                ),
-                                height:60
-                            ),
-                            SizedBox(
-                                width:24
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Align(
-                                  alignment: Alignment.topRight,
-                                    child: Text('78')
-                                ),
-                                Text('Sun light'),
-                              ],
-                            )
-                          ]
-                      ),
-                    ]
+                    ],
                   ),
-                  const SizedBox(height:13),
-                  const SizedBox(height:27),
-                  const SizedBox(height:27),
-                  const SizedBox(height:27),
+                  const SizedBox(height:80),
                   Expanded(
                     child: Container(
                       width:800,
@@ -146,7 +260,7 @@ class QRDetails extends StatelessWidget{
                                         fontWeight: FontWeight.w600
                                     )),
                                 Row(
-                                  children:[
+                                  children: const [
                                     SizedBox(width:4),
                                     Flexible(
                                       child: Text('Native to southern Africa, sn'
@@ -173,7 +287,7 @@ class QRDetails extends StatelessWidget{
                                     )),
                                 const SizedBox(height:8),
                                 Row(
-                                    children:[
+                                    children:const [
                                       SizedBox(width:4),
                                       Flexible(
                                         child: Text(''

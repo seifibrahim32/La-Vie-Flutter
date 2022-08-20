@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_hackathon/views/qr_views/qr_details.dart';
-import 'package:flutter_hackathon/views/qr_views/qr_scanner.dart';
+import 'package:flutter_hackathon/views/notifications_screen.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 
@@ -22,10 +21,10 @@ class LaVieSplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       color: Colors.white,
       debugShowCheckedModeBanner: false,
-      home: QRDetails(),
+      home: NotificationScreen(),
     );
   }
 }

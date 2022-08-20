@@ -136,7 +136,8 @@ class _CartScreenState extends State<CartScreen> {
                                                                 style: TextStyle(
                                                                     fontSize: 13,
                                                                     fontWeight: FontWeight.w500
-                                                                )),
+                                                                )
+                                                            ),
                                                             SizedBox(width:13),
                                                             Icon(Icons.add,
                                                                 color : Colors.greenAccent,
