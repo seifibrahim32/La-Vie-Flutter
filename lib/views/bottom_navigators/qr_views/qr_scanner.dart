@@ -1,4 +1,3 @@
-import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -17,7 +16,6 @@ class QRScannerScreen extends StatefulWidget{
 class _QRScannerScreenState extends State<QRScannerScreen> {
 
   String scanResult = "";
-
 
   @override
   void initState() {
@@ -42,6 +40,7 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
       this.scanResult = scanResult;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     FlutterNativeSplash.remove();

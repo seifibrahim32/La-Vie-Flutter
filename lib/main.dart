@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_hackathon/views/notifications_screen.dart';
+import 'package:flutter_hackathon/views/user_registration_views/registration_screen.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+
+import 'views/cart_screen.dart';
 
 
 void main() async {
@@ -24,7 +26,7 @@ class LaVieSplashScreen extends StatelessWidget {
     return MaterialApp(
       color: Colors.white,
       debugShowCheckedModeBanner: false,
-      home: NotificationScreen(),
+      home: CartScreen(),
     );
   }
 }
