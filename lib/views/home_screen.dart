@@ -20,9 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   int selectedIndexNavBar = 2;
 
-  final List<Widget> _itemsList = const [
-    BlogsScreen(),
-    QRScannerScreen(),
+  final List<Widget> _itemsList = const [ BlogsScreen(), QRScannerScreen(),
     MainScreen(),
     NotificationScreen(),
     ProfileScreen()

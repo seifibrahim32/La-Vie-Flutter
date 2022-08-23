@@ -335,7 +335,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             children: [
                               Expanded(
                                 child: MaterialButton(
-                                    padding: EdgeInsets.symmetric(
+                                    padding: const EdgeInsets.symmetric(
                                         vertical: 15,
                                         horizontal: 22),
                                     shape: RoundedRectangleBorder(
@@ -358,13 +358,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                 fontSize: 16,
                                                 color : Colors.greenAccent,
                                               )),
-                                          Spacer()
+                                          const Spacer()
                                         ],
                                       ),
                                     )
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               Expanded(
                                 child: MaterialButton(
                                     minWidth: 367.43,
@@ -443,7 +443,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         fillColor: Colors.white,
                                         hintText: 'Type your first name',
                                         contentPadding:
-                                        const EdgeInsets.only(left: 14.0, bottom: 12.0, top: 0.0),
+                                        const EdgeInsets.only(left: 14.0,
+                                            bottom: 12.0,
+                                            top: 0.0
+                                        ),
                                         focusedBorder: OutlineInputBorder(
                                           borderSide: const BorderSide(color: Color(
                                               0xFF939393)),
@@ -463,7 +466,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   ]
                               ),
                             ),
-                            SizedBox(width:17),
+                            const SizedBox(width:17),
                             Expanded(
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,

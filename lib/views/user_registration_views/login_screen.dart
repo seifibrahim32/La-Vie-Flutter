@@ -143,12 +143,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                   checkColor: Colors.white,
                                   activeColor: Colors.greenAccent,
                                 ),
-                                Text('Remember me'),
-                                Spacer(),
+                                const Text('Remember me'),
+                                const Spacer(),
                                 GestureDetector(
                                   onTap: (){},
-                                  child: Text('Forgot Password?',
-                                  style :TextStyle(
+                                  child: const Text('Forgot Password?',
+                                  style : TextStyle(
                                     color : Colors.greenAccent,
                                     decoration: TextDecoration.underline,
                                   )),
@@ -184,11 +184,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           Row(
                             mainAxisAlignment:  MainAxisAlignment.center ,
                               children :[
-                                Text('Don\'t have an account?'),
-                                SizedBox(width: 8),
+                                const Text('Don\'t have an account?'),
+                                const SizedBox(width: 8),
                                 GestureDetector(
                                   onTap: (){},
-                                  child: Text('Sign Up',
+                                  child: const Text('Sign Up',
                                       style :TextStyle(
                                         color : Colors.greenAccent,
                                       )),
@@ -231,9 +231,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 MaterialButton(
-                                    padding: EdgeInsets.symmetric(
+                                    padding: const EdgeInsets.symmetric(
                                         vertical: 15,
-                                        horizontal: 22),
+                                        horizontal: 22
+                                    ),
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10.0),
                                         side: const BorderSide(color: Colors.grey)
@@ -255,9 +256,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ],
                                   )
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 MaterialButton(
-                                    padding: EdgeInsets.symmetric(
+                                    padding: const EdgeInsets.symmetric(
                                         vertical: 15,
                                         horizontal: 22),
                                     shape: RoundedRectangleBorder(

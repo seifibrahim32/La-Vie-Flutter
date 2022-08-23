@@ -1,11 +1,8 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_hackathon/views/bottom_navigators/blogs_screens/blogs_screen.dart';
-import 'package:flutter_hackathon/views/user_registration_views/registration_screen.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-import 'views/cart_screen.dart';
+import 'views/course_exam_screen.dart';
 
 
 void main() async {
@@ -29,7 +26,7 @@ class LaVieSplashScreen extends StatelessWidget {
     return const MaterialApp(
       color: Colors.white,
       debugShowCheckedModeBanner: false,
-      home: BlogsScreen(),
+      home: CourseExamScreen(),
     );
   }
 }

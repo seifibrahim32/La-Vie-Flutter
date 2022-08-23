@@ -31,7 +31,6 @@ class _BlogsScreenState extends State<BlogsScreen> {
               backgroundColor: Colors.white,
               body: Column(
                 children:[
-
                   Padding(
                     padding: const EdgeInsets.only(left:114.0,
                         right:118,
@@ -99,13 +98,13 @@ class _BlogsScreenState extends State<BlogsScreen> {
                   ),
                   Container(
                       width: double.infinity,
-                      color: Colors.grey[100],
+                      color: Colors.white,
                       child: const SizedBox(height: 40)
                   ),
                   Container(
                     alignment: Alignment.center,
                     width: double.infinity,
-                    color: Colors.grey[100],
+                    color: Colors.white,
                     child: const Text('Blogs',
                         style: TextStyle(
                             fontSize: 32,
@@ -113,144 +112,104 @@ class _BlogsScreenState extends State<BlogsScreen> {
                         )
                     ),
                   ),
+                  const SizedBox(height:46),
                   Expanded(
-                    child: GridView.builder(
-                      itemCount :10,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          crossAxisSpacing: 14,
-                          mainAxisSpacing:74,
-                          mainAxisExtent:227
-                      ),
-                      itemBuilder: (BuildContext context, int index) {
-                        return Stack(
-                          clipBehavior: Clip.none,
-                          children: [
-                            Expanded(
+                    child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left:118.0,
+                          right: 126
+                        ),
+                        child: GridView.builder(
+                          shrinkWrap: true,
+                          itemCount :10,
+                          gridDelegate: const
+                          SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              crossAxisSpacing: 74,
+                              mainAxisSpacing:74,
+                              mainAxisExtent:340
+                          ),
+                          itemBuilder: (BuildContext context, int index) {
+                            return Expanded(
                               child: Container(
-                                  padding: const EdgeInsets.only(
-                                      left:13.0,
-                                      right:11,
-                                      top:27,
-                                      bottom: 20
-                                  ),
-                                  width:176,
+                                  height: double.infinity,
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
+                                    borderRadius: BorderRadius.circular(10),
                                     color: Colors.white,
                                     boxShadow: const [
                                       BoxShadow(
-                                        offset: Offset(0, 2),
-                                        spreadRadius: 1,
-                                        color: Color(0x1A5A5959),
-                                        blurRadius: 0.8,
+                                        offset: Offset(12,11),
+                                        spreadRadius: 4,
+                                        color: Color(0x1A2E2E2E),
+                                        blurRadius: 30,
                                       ),
                                     ],
                                   ),
                                   child: Expanded(
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                            children: [
-                                              GestureDetector(
-                                                child: Container(
-                                                  width:16,
-                                                  height:16,
-                                                  color: Colors.grey.withOpacity(0.3),
-                                                  child: const Icon(
-                                                      Icons.remove,
-                                                      color : Colors.grey ,
-                                                      size: 16.14
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.start,
+                                        children:[
+                                          ClipRRect(
+                                            borderRadius: BorderRadius.circular(10),
+                                            child: Image.network(
+                                                'https://www.nme.com/wp-content/'
+                                                    'uploads/2022/02/rihanna-2000x'
+                                                    '1270-1.jpg'
+                                                ,scale:0.7
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                                children : const [
+                                                  SizedBox(height:20),
+                                                  Flexible(
+                                                    child: Text('2 days ago ',
+                                                        style:TextStyle(
+                                                            color: Colors.green,
+                                                            fontSize: 14,
+                                                            fontWeight: FontWeight.w500
+                                                        )
+                                                    ),
                                                   ),
-                                                ),
-                                              ),
-                                              const SizedBox(width:13),
-                                              const Text('1',
-                                                  style: TextStyle(
-                                                      fontSize: 16,
-                                                      fontWeight: FontWeight.w600
-                                                  )
-                                              ),
-                                              const SizedBox(width:13),
-                                              GestureDetector(
-                                                child: Container(
-                                                  width:16,
-                                                  height:16,
-                                                  color: Colors.grey.withOpacity(0.3),
-                                                  child: const Icon(
-                                                      Icons.add,
-                                                      color : Colors.grey,
-                                                      size: 16.14
+                                                  SizedBox(height:11),
+                                                  Flexible(
+                                                    child: Text('5 Simple Tips treat plant ',
+                                                        style:TextStyle(
+                                                            fontSize: 14,
+                                                            fontWeight: FontWeight.w500
+                                                        )
+                                                    ),
                                                   ),
-                                                ),
-                                              ),
-                                            ]
-                                        ),
-                                        const SizedBox(height:83),
-                                        Expanded(
-                                          child: Column(
-                                              crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                              mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                              children:[
-                                                const Flexible(
-                                                  child: Text('GARDENIA PLANET',
+                                                  SizedBox(height:14),
+                                                  Text('leaf, in botany, any usually'
+                                                      ' flattened green outgrowth from the stem of  ',
+                                                      maxLines:5,
                                                       style:TextStyle(
-                                                          fontSize: 14,
+                                                          fontSize: 12,
                                                           fontWeight: FontWeight.w500
                                                       )
                                                   ),
-                                                ),
-                                                const Text('70 EGP',
-                                                    style:TextStyle(
-                                                        fontSize: 12,
-                                                        fontWeight: FontWeight.w500
-                                                    )
-                                                ),
-                                                MaterialButton(
-                                                  height: 35,
-                                                  minWidth: 148,
-                                                  shape: const RoundedRectangleBorder(
-                                                      borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(5.0)
-                                                      )
-                                                  ),
-                                                  textColor:   Colors.white,
-                                                  elevation: 0,
-                                                  color: const Color(0xFF1ABC00),
-                                                  onPressed: () {
-                                                  },
-                                                  child: const SizedBox(
-                                                    child: Text('Add To Cart',
-                                                        style:TextStyle(
-                                                            fontSize: 16
-                                                        )),
-                                                  ),
-                                                ),
-                                              ]
-                                          ),
-                                        ),
-                                      ],
+                                                ]
+                                              ),
+                                            ),
+                                          )
+                                        ]
                                     ),
                                   )
                               ),
-                            ),
-                            Positioned(
-                                top : -30,
-                                left:15,
-                                child: Image.asset(
-                                    'assets/plant_home_demo.png'
-                                    ,scale:0.7
-                                )
-                            ),
-                          ],
-                        );
-                      },
+                            );
+                          },
+                        ),
+                      ),
                     ),
                   ),
                 ],
