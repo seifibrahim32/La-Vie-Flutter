@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_hackathon/views/bottom_navigators/blogs_screens/blogs_screen.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-import 'views/course_exam_screen.dart';
+import 'controllers/scroll_behaviors.dart';
 
 
 void main() async {
@@ -12,10 +13,10 @@ void main() async {
     statusBarIconBrightness: Brightness.dark,
     systemNavigationBarColor: Colors.transparent,
   ));
-    FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-    await Future.delayed(const Duration(milliseconds: 3));
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+    await Future.delayed(const Duration(milliseconds: 3)).
+    whenComplete(() => runApp(const LaVieSplashScreen()));
 
-  runApp(const LaVieSplashScreen());
 }
 
 class LaVieSplashScreen extends StatelessWidget {
@@ -23,10 +24,11 @@ class LaVieSplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       color: Colors.white,
+      scrollBehavior: MyCustomScrollBehavior(),
       debugShowCheckedModeBanner: false,
-      home: CourseExamScreen(),
+      home: BlogsScreen(),
     );
   }
 }

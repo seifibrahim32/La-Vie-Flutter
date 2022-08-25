@@ -138,32 +138,30 @@ class BlogListScreen extends StatelessWidget{
                                 ]
                             ),
                             SizedBox(height: 14),
-                            Container(
-                              child: const Text('leaf, in botany, any usually flattened'
-                                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
-                                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
-                                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
-                                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
-                                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
-                                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
-                                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
-                                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
-                                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
-                                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
-                                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
-                                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
-                                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
-                                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
-                                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
-                                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
-                                  ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
-                                  ' green outgrowth from the stem of  ',
-                                  style : TextStyle(
-                                      color: Color(0xC77D7B7B),
-                                      fontWeight: FontWeight.w400,
-                                      fontSize : 16
-                                  )
-                              ),
+                            const Text('leaf, in botany, any usually flattened'
+                                ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                                ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                                ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                                ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                                ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                                ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                                ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                                ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                                ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                                ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                                ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                                ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                                ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                                ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                                ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                                ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                                ' green outgrowth from the stem of  leaf, in botany, any usually flattened'
+                                ' green outgrowth from the stem of  ',
+                                style : TextStyle(
+                                    color: Color(0xC77D7B7B),
+                                    fontWeight: FontWeight.w400,
+                                    fontSize : 16
+                                )
                             ),
                             SizedBox(height: 134),
                           ],
@@ -364,7 +362,6 @@ class BlogListScreen extends StatelessWidget{
             )
         );
       }
-
         return Scaffold(
             body:SingleChildScrollView(
               child: Column(

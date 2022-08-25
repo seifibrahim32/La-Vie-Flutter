@@ -33,9 +33,9 @@ class _RegistrationScreenState extends State<RegistrationScreen>
         backgroundColor: Colors.white,
         body:LayoutBuilder(
           builder: (content , constraints){
+            // Registration Screen -- Web / Windows version
             if(constraints.widthConstraints().biggest
                 .width >= 1366) {
-              print(constraints.widthConstraints().biggest.width);
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -87,7 +87,7 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                           onPressed: () {
 
                           },
-                          child: Center(
+                          child: const Center(
                             child: Padding(
                               padding: EdgeInsets.only(top:10.0,
                                   bottom:9,left:33,right:36
@@ -144,6 +144,7 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                 ],
               );
             }
+            // Registration Screen -- Mobile Version
             return Stack(
               alignment: Alignment.center,
               children: [

@@ -17,9 +17,12 @@ class _CourseExamScreenState extends State<CourseExamScreen> {
 
   QuestionsChoice _questionsChoice = QuestionsChoice.two;
 
+
   @override
   void initState() {
     super.initState();
+
+    PageController _pageController = PageController();
 
   }
   @override

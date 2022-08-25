@@ -6,6 +6,7 @@ Widget getAllKinds() =>
           vertical:23),
       child: GridView.builder(
         itemCount :10,
+        shrinkWrap: true,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 14,

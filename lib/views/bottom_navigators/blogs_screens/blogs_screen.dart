@@ -108,6 +108,7 @@ class _BlogsScreenState extends State<BlogsScreen> {
                     child: const Text('Blogs',
                         style: TextStyle(
                             fontSize: 32,
+                            color: Colors.green,
                             fontWeight: FontWeight.w600
                         )
                     ),
@@ -216,15 +217,16 @@ class _BlogsScreenState extends State<BlogsScreen> {
               ),
             );
           }
-
           return Scaffold(
               resizeToAvoidBottomInset: false,
               backgroundColor: Colors.white,
               appBar: AppBar(
                   elevation: 0.2,
                   backgroundColor: Colors.white,
-                  leading: const Icon(Icons.arrow_back,
-                      color:Colors.black),
+                  leading: const Icon(
+                      Icons.arrow_back,
+                      color:Colors.black
+                  ),
                   centerTitle: true,
                   title: const Text('Blogs',
                     style: TextStyle(

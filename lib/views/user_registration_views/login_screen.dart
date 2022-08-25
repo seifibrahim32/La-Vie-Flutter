@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
+import '../../controllers/network/dio_creator.dart';
+import '../../controllers/singletons/DioSingleton.dart';
+import '../../controllers/validators/text_form_fields_validators.dart';
+
 class LoginScreen extends StatefulWidget{
   const LoginScreen({super.key});
 
@@ -12,17 +16,18 @@ class LoginScreen extends StatefulWidget{
 
 class _LoginScreenState extends State<LoginScreen> {
 
-
+  DioCreator? _dioInstance ;
   late TextEditingController? _email;
   late TextEditingController? _password;
 
-  final GlobalKey<FormState> _signInKey = GlobalKey<FormState>();
+  GlobalKey<FormState> _signInKey = GlobalKey<FormState>();
   @override
   void initState() {
     super.initState();
     FlutterNativeSplash.remove();
     _email = TextEditingController();
     _password = TextEditingController();
+    _dioInstance = DioSingleton.getSingleInstance();
   }
 
   @override
@@ -31,9 +36,9 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: LayoutBuilder(
         builder: (ctx,constraints){
-      if(constraints.widthConstraints().biggest
-          .width >= 1366) {
-        return SingleChildScrollView(
+          if(constraints.widthConstraints().biggest
+              .width >= 1366) {
+            return SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -62,6 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 319.0),
                     child: Form(
                       key: _signInKey,
+                      autovalidateMode: AutovalidateMode.always,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -74,6 +80,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           TextFormField(
                             controller: _email,
                             autofocus: false,
+                            validator: (val){
+                              return validateEmail(value: val);
+                            },
                             style: const TextStyle(
                                 fontSize: 15.0, color: Color(0xFFbdc6cf)),
                             decoration: InputDecoration(
@@ -110,7 +119,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             controller: _password,
                             autofocus: false,
                             style: const TextStyle(
-                                fontSize: 15.0, color: Color(0xFFbdc6cf)),
+                                fontSize: 15.0, color: Color(0xFFbdc6cf)
+                            ),
+                            validator: (val){
+                              validateSignInPass(val);
+                            },
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: Colors.white,
@@ -164,8 +177,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             textColor: Colors.white,
                             elevation: 0,
                             color: const Color(0xFF1ABC00),
-                            onPressed: () {
-
+                            onPressed: () async {
+                                await _dioInstance!.setEmailSignInData(
+                                  email: _email!.text,
+                                  password: _password!.text,
+                                  context: context
+                                );
                             },
                             child: const SizedBox(
                               width: double.infinity,
@@ -179,7 +196,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       )),
                                 ),
                               ),
-                            ),),
+                            ),
+                          ),
                           const SizedBox(height: 23),
                           Row(
                             mainAxisAlignment:  MainAxisAlignment.center ,
@@ -239,7 +257,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                         borderRadius: BorderRadius.circular(10.0),
                                         side: const BorderSide(color: Colors.grey)
                                     ),
-                                  onPressed: () {  },
+                                  onPressed: () async {
+                                     await  _dioInstance!.
+                                     GoogleDataLogin(email:_email!.text
+                                         ,password:_password!.text,
+                                         context: context);
+                                  },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -265,7 +288,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                         borderRadius: BorderRadius.circular(10.0),
                                         side: const BorderSide(color: Colors.grey)
                                     ),
-                                    onPressed: () {  },
+                                    onPressed: () async {
+                                      await  _dioInstance!.
+                                      FacebookDataLogin(email:_email!.text
+                                          ,password:_password!.text,
+                                          context: context);
+                                    },
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -295,7 +323,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ],
           ),
         );
-      }
+          }
           return SingleChildScrollView(
             child: Column(
               children: [
@@ -303,6 +331,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal:45.0),
                   child: Form(
+                    autovalidateMode: AutovalidateMode.always,
                     key: _signInKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -316,6 +345,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         TextFormField(
                           controller: _email,
                           autofocus: false,
+                          validator: (val){
+                            print(val);
+                            return validateEmail(value: val);
+                          },
                           style: const TextStyle(fontSize: 15.0, color: Color(0xFFbdc6cf)),
                           decoration: InputDecoration(
                             filled: true,
@@ -348,7 +381,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(height:3.8),
                         TextFormField(
                           controller: _password,
-                          autofocus: false,
+                          validator: (val){
+                            print(val);
+                            return validateEmail(value: val);
+                          },
                           style: const TextStyle(fontSize: 15.0, color: Color(0xFFbdc6cf)),
                           decoration: InputDecoration(
                             filled: true,
@@ -381,8 +417,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           textColor:Colors.white,
                           elevation: 0,
                           color: const Color(0xFF1ABC00),
-                          onPressed: () {
-
+                          onPressed: () async {
+                           await _dioInstance!.
+                            setEmailSignInData(email:_email!.text,
+                                password: _password!.text, context: context);
                           },
                           child: const SizedBox(
                             width: double.infinity,
@@ -430,11 +468,26 @@ class _LoginScreenState extends State<LoginScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children:[
                               InkWell(
+                                  onTap: () async {
+                                    await  _dioInstance!.
+                                    GoogleDataLogin(email:_email!.text
+                                        ,password:_password!.text,
+                                        context: context);
+                                  },
                                   child: Image.asset('assets/google_login_icon.png',
-                                      width:32.03,height:33.04)),
+                                      width:32.03,height:33.04)
+                              ),
                               const SizedBox(width:31.55),
-                              InkWell(child: Image.asset('assets/facebook_login_icon.png',
-                                  width:15.79,height:25.95))
+                              InkWell(
+                                  onTap: () async {
+                                    await  _dioInstance!.
+                                    FacebookDataLogin(email:_email!.text
+                                        ,password:_password!.text,
+                                        context: context);
+                                  },
+                                  child: Image.asset('assets/facebook_login_icon.png',
+                                  width:15.79,height:25.95)
+                              )
                             ]),
                         const SizedBox(height:13.1)
                       ],
@@ -445,7 +498,6 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           );
         },
-
       )
     );
   }
