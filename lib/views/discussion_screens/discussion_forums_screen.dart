@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
+import '../../controllers/network/dio_creator.dart';
+import '../../controllers/singletons/DioSingleton.dart';
+
 class DiscussionScreen extends StatefulWidget {
   const DiscussionScreen({super.key});
 
@@ -10,15 +13,16 @@ class DiscussionScreen extends StatefulWidget {
 
 class _DiscussionScreenState extends State<DiscussionScreen>
     with SingleTickerProviderStateMixin {
+
   bool isAllForumsClicked = true;
 
   TabController? _tabController;
-
+  DioCreator? _dioInstance ;
   @override
   void initState() {
     super.initState();
-
     _tabController = TabController(initialIndex: 0, length: 2, vsync: this);
+    _dioInstance = DioSingleton.getSingleInstance();
   }
 
   @override
@@ -66,7 +70,8 @@ class _DiscussionScreenState extends State<DiscussionScreen>
                           const Spacer(),
                           const Text('Community',
                               style: TextStyle(
-                                  fontSize: 24, fontWeight: FontWeight.w600)),
+                                  fontSize: 24, fontWeight: FontWeight.w600,
+                              color : Colors.green)),
                           const Spacer(),
                           Image.asset(
                             'assets/cart_icon.png',
@@ -181,182 +186,188 @@ class _DiscussionScreenState extends State<DiscussionScreen>
                               children: [
                                 Expanded(
                                   flex: 3,
-                                  child: SingleChildScrollView(
-                                    child: ListView.separated(
-                                      physics: const BouncingScrollPhysics(),
-                                      shrinkWrap: true,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        return Padding(
-                                          padding: const EdgeInsets.only(
-                                              right: 26.0, left: 29.0),
-                                          child: SingleChildScrollView(
-                                            child: ListView.separated(
-                                              physics:
-                                              const BouncingScrollPhysics(),
-                                              shrinkWrap: true,
-                                              itemCount: 6,
-                                              separatorBuilder: (ctx, index) {
-                                                return const SizedBox(
-                                                    height: 30);
-                                              },
-                                              itemBuilder: (ctx, index) {
-                                                return Container(
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius:
-                                                    BorderRadius.circular(
-                                                        12),
-                                                    boxShadow: const [
-                                                      BoxShadow(
-                                                        offset:
-                                                        Offset(12, 16),
-                                                        spreadRadius: 1,
-                                                        color:
-                                                        Color(0x1A5A5959),
-                                                        blurRadius: 12.0,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  child: Column(children: [
-                                                    Column(
-                                                      children: [
-                                                        const SizedBox(
-                                                            height: 15.35),
-                                                        Row(children: [
-                                                          const SizedBox(
-                                                              width: 14.25),
-                                                          const CircleAvatar(
-                                                            radius: 21,
-                                                          ),
-                                                          const SizedBox(
-                                                              width: 11.88),
-                                                          Column(
-                                                            mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .start,
-                                                            crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                            children: const [
-                                                              Text(
-                                                                  'Mayar Mohamed',
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                      13,
-                                                                      fontWeight:
-                                                                      FontWeight
-                                                                          .w700)),
-                                                              Text(
-                                                                  'a month ago',
-                                                                  style: TextStyle(
-                                                                      color: Color(
-                                                                          0xD6979797),
-                                                                      fontSize:
-                                                                      11,
-                                                                      fontWeight:
-                                                                      FontWeight
-                                                                          .w400)),
-                                                            ],
-                                                          )
-                                                        ]),
-                                                        const SizedBox(
-                                                            height: 23.61),
-                                                        Row(children: const [
-                                                          SizedBox(
-                                                              width: 8.31),
-                                                          Text(
-                                                              'How to plant correctly ',
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .greenAccent,
-                                                                  fontSize:
-                                                                  15,
-                                                                  fontWeight:
-                                                                  FontWeight
-                                                                      .w700))
-                                                        ]),
-                                                        const SizedBox(
-                                                            height: 25.97),
-                                                        Row(children: const [
-                                                          SizedBox(
-                                                              width: 13.06),
-                                                          Flexible(
-                                                            child: Text(
-                                                                'It is a long established'
-                                                                    ' fact '
-                                                                    'that a reader will be distracted',
-                                                                overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                                maxLines: 3,
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .grey,
-                                                                    fontSize:
-                                                                    13,
-                                                                    fontWeight:
-                                                                    FontWeight
-                                                                        .w400)),
-                                                          )
-                                                        ]),
-                                                        const SizedBox(
-                                                            height: 23),
+                                  child: FutureBuilder<dynamic>(
+                                    future: _dioInstance!.getAllForums(),
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot snapshot)
+                                    {
+                                      return ListView.separated(
+                                        physics: const BouncingScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 26.0, left: 29.0),
+                                            child: SingleChildScrollView(
+                                              child: ListView.separated(
+                                                physics:
+                                                const NeverScrollableScrollPhysics(),
+                                                shrinkWrap: true,
+                                                itemCount: 6,
+                                                separatorBuilder: (ctx, index) {
+                                                  return const SizedBox(
+                                                      height: 30);
+                                                },
+                                                itemBuilder: (ctx, index) {
+                                                  return Container(
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          12),
+                                                      boxShadow: const [
+                                                        BoxShadow(
+                                                          offset:
+                                                          Offset(12, 16),
+                                                          spreadRadius: 1,
+                                                          color:
+                                                          Color(0x1A5A5959),
+                                                          blurRadius: 12.0,
+                                                        ),
                                                       ],
                                                     ),
-                                                    const Image(
-                                                        image: NetworkImage(
-                                                            'https://www.nme.com/wp-'
-                                                                'content/uploads/2022/02/rihanna-2000x1270-1.jpg')),
-                                                    const SizedBox(
-                                                        height: 16),
-                                                    Row(
-                                                        crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
+                                                    child: Column(
                                                         children: [
+                                                          Column(
+                                                            children: [
+                                                              const SizedBox(
+                                                                  height: 15.35),
+                                                              Row(children: [
+                                                                const SizedBox(
+                                                                    width: 14.25),
+                                                                const CircleAvatar(
+                                                                  radius: 21,
+                                                                ),
+                                                                const SizedBox(
+                                                                    width: 11.88),
+                                                                Column(
+                                                                  mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                                  crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                                  children: const [
+                                                                    Text(
+                                                                        'Mayar Mohamed',
+                                                                        style: TextStyle(
+                                                                            color: Colors
+                                                                                .black,
+                                                                            fontSize:
+                                                                            13,
+                                                                            fontWeight:
+                                                                            FontWeight
+                                                                                .w700)),
+                                                                    Text(
+                                                                        'a month ago',
+                                                                        style: TextStyle(
+                                                                            color: Color(
+                                                                                0xD6979797),
+                                                                            fontSize:
+                                                                            11,
+                                                                            fontWeight:
+                                                                            FontWeight
+                                                                                .w400)),
+                                                                  ],
+                                                                )
+                                                              ]),
+                                                              const SizedBox(
+                                                                  height: 23.61),
+                                                              Row(children: const [
+                                                                SizedBox(
+                                                                    width: 8.31),
+                                                                Text(
+                                                                    'How to plant correctly ',
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .greenAccent,
+                                                                        fontSize:
+                                                                        15,
+                                                                        fontWeight:
+                                                                        FontWeight
+                                                                            .w700))
+                                                              ]),
+                                                              const SizedBox(
+                                                                  height: 25.97),
+                                                              Row(children: const [
+                                                                SizedBox(
+                                                                    width: 13.06),
+                                                                Flexible(
+                                                                  child: Text(
+                                                                      'It is a long established'
+                                                                          ' fact '
+                                                                          'that a reader will be distracted',
+                                                                      overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                      maxLines: 3,
+                                                                      style: TextStyle(
+                                                                          color: Colors
+                                                                              .grey,
+                                                                          fontSize:
+                                                                          13,
+                                                                          fontWeight:
+                                                                          FontWeight
+                                                                              .w400)),
+                                                                )
+                                                              ]),
+                                                              const SizedBox(
+                                                                  height: 23),
+                                                            ],
+                                                          ),
+                                                          const Image(
+                                                              image: NetworkImage(
+                                                                  'https://www.nme.com/wp-'
+                                                                      'content/uploads/2022/02/rihanna-2000x1270-1.jpg')),
                                                           const SizedBox(
-                                                              width: 61),
-                                                          Image.asset(
-                                                              'assets/likes_button.png',
-                                                              width: 17.18,
-                                                              height: 16.01),
-                                                          const SizedBox(
-                                                              width: 2),
-                                                          const Text(
-                                                              '0 Likes',
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                                  fontSize:
-                                                                  13)),
-                                                          const SizedBox(
-                                                              width: 44.01),
-                                                          const Text(
-                                                              '2 Replies',
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                                  fontSize:
-                                                                  13)),
-                                                        ])
-                                                  ]),
-                                                );
-                                              },
+                                                              height: 16),
+                                                          Row(
+                                                              crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                              children: [
+                                                                const SizedBox(
+                                                                    width: 61),
+                                                                Image.asset(
+                                                                    'assets/likes_button.png',
+                                                                    width: 17.18,
+                                                                    height: 16.01),
+                                                                const SizedBox(
+                                                                    width: 2),
+                                                                const Text(
+                                                                    '0 Likes',
+                                                                    style: TextStyle(
+                                                                        fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                        fontSize:
+                                                                        13)),
+                                                                const SizedBox(
+                                                                    width: 44.01),
+                                                                const Text(
+                                                                    '2 Replies',
+                                                                    style: TextStyle(
+                                                                        fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                        fontSize:
+                                                                        13)),
+                                                              ])
+                                                        ]),
+                                                  );
+                                                },
+                                              ),
                                             ),
-                                          ),
-                                        );
-                                      },
-                                      separatorBuilder:
-                                          (BuildContext context, int index) {
-                                        return const SizedBox(height: 11);
-                                      },
-                                      itemCount: 10,
-                                    ),
+                                          );
+                                        },
+                                        separatorBuilder:
+                                            (BuildContext context, int index) {
+                                          return const SizedBox(height: 11);
+                                        },
+                                        itemCount: snapshot.data!['data'].length,
+                                      );
+                                    },
                                   ),
                                 ),
                                 Expanded(

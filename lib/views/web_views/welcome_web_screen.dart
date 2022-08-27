@@ -5,9 +5,16 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../controllers/network/dio_creator.dart';
+import '../../controllers/singletons/DioSingleton.dart';
+import '../bottom_navigators/profile_screen.dart';
+import '../course_exam_screen.dart';
+
 class WelcomeWebScreen extends StatefulWidget{
 
-  const WelcomeWebScreen({super.key});
+  String done;
+
+  WelcomeWebScreen(this.done,{super.key});
 
   @override
   State<WelcomeWebScreen> createState() => _WelcomeWebScreenState();
@@ -17,10 +24,13 @@ class _WelcomeWebScreenState extends State<WelcomeWebScreen> {
 
   bool selected = false;
 
+  DioCreator? _dioInstance ;
+
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds:3),() => showAlert(context));
+    _dioInstance = DioSingleton.getSingleInstance();
+    Future.delayed(const Duration(seconds:3),() => showAlert(context));
   }
 
   final List<Widget> _rowsCircular = [
@@ -110,6 +120,7 @@ class _WelcomeWebScreenState extends State<WelcomeWebScreen> {
   ];
 
   void showAlert(BuildContext context) {
+    TextEditingController _getFreeSeedsController = TextEditingController();
     showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -140,6 +151,7 @@ class _WelcomeWebScreenState extends State<WelcomeWebScreen> {
                         Expanded(
                           child: TextField(
                             textAlign: TextAlign.start,
+                            controller: _getFreeSeedsController,
                             maxLines: 1,
                             style: const TextStyle(fontSize: 17),
                             textAlignVertical: TextAlignVertical.center,
@@ -165,6 +177,10 @@ class _WelcomeWebScreenState extends State<WelcomeWebScreen> {
                           elevation: 0,
                           color: Colors.green,
                           onPressed: () {
+
+                            _dioInstance!.getFreeSeeds(context: context,email:
+                            _getFreeSeedsController.text);
+
                           },
                           child: const SizedBox(
                             child: Text('Send',
@@ -247,6 +263,7 @@ class _WelcomeWebScreenState extends State<WelcomeWebScreen> {
                               const Text('Home',
                                   style:TextStyle(
                                       fontSize: 24,
+                                      color: Colors.green,
                                       fontWeight: FontWeight.w600
                                   )
                               ),
@@ -285,12 +302,24 @@ class _WelcomeWebScreenState extends State<WelcomeWebScreen> {
                               const Icon(Icons.notifications_outlined,
                               ),
                               const SizedBox(width: 23),
-                              const CircleAvatar(
-                                radius:13,
-                                backgroundColor: Colors.black,
-                                backgroundImage: NetworkImage(
-                                    'https://www.nme.com/wp-content/'
-                                        'uploads/2022/02/rihanna-2000x1270-1.jpg'
+                              GestureDetector(
+                                onTap : (){
+
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(builder:
+                                          (BuildContext context) =>
+                                          ProfileScreen()),
+                                      ModalRoute.withName('/')
+                                  );
+                                },
+                                child: const CircleAvatar(
+                                  radius:13,
+                                  backgroundColor: Colors.black,
+                                  backgroundImage: NetworkImage(
+                                      'https://www.nme.com/wp-content/'
+                                          'uploads/2022/02/rihanna-2000x1270-1.jpg'
+                                  ),
                                 ),
                               ),
                             ],
@@ -298,7 +327,7 @@ class _WelcomeWebScreenState extends State<WelcomeWebScreen> {
                         ),
                       ),
                     ),
-                    Stack(
+                    widget.done=="False"?Stack(
                       children: [
                         Align(
                           widthFactor: 35,
@@ -310,7 +339,15 @@ class _WelcomeWebScreenState extends State<WelcomeWebScreen> {
                               backgroundColor: Colors.greenAccent,
                               child: IconButton(
                                 color: Colors.white,
-                                onPressed: () {  },
+                                onPressed: () {
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(builder:
+                                          (BuildContext context) =>
+                                              CourseExamScreen()),
+                                      ModalRoute.withName('/')
+                                  );
+                                },
                                 icon: Icon(Icons.question_mark,),
 
                               ),
@@ -412,8 +449,8 @@ class _WelcomeWebScreenState extends State<WelcomeWebScreen> {
                             )
                           ],
                         ),
-                      ],
-                    ),
+                      ]
+                    ):Container(width:0,height:0),
                     Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children :[
@@ -609,77 +646,77 @@ class _WelcomeWebScreenState extends State<WelcomeWebScreen> {
                       physics: const BouncingScrollPhysics(),
                       primary: true,
                       child: SizedBox(
-                        height:410,
+                        height:230,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal:218.0),
-                          child: ListView.separated(
-                            scrollDirection: Axis.horizontal,
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            primary: false,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Flexible(
-                                child: Container(
-                                    width:300,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.white,
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        offset: Offset(12,11),
-                                        spreadRadius: 4,
-                                        color: Color(0x1A2E2E2E),
-                                        blurRadius: 30,
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.start,
-                                      children:[
-                                        ClipRRect(
-                                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                                          borderRadius: BorderRadius.circular(10),
-                                          child: Image.network(
-                                            'https://www.nme.com/wp-content/'
-                                                'uploads/2022/02/rihanna-2000x'
-                                                '1270-1.jpg',
-                                            width:300
-                                          ),
+                          child: FutureBuilder<Map<String, dynamic>>(
+                            future: _dioInstance!.getBlogs(),
+                            builder: (context, snapshot){
+                              List list = snapshot.data!['data']['plants'];
+                              return ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                primary: false,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.white,
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          offset: Offset(12,11),
+                                          spreadRadius: 4,
+                                          color: Color(0x1A2E2E2E),
+                                          blurRadius: 30,
                                         ),
-                                        SizedBox(height:20),
-                                        Flexible(
-                                          child: Text('2 days ago ',
-                                              style:TextStyle(
-                                                  color: Colors.green,
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w500
-                                              )
+                                      ],
+                                    ),
+                                    child: Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.start,
+                                        children:[
+                                          ClipRRect(
+                                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                                            borderRadius: BorderRadius.circular(10),
+                                            child: Image.network(
+                                                fit: BoxFit.fitWidth,
+                                                list[index]['imageUrl'] != ""?
+                                                ('https://lavie.orangedigitalcenteregypt.com'+
+                                                    list[index]['imageUrl']):
+                                                ('https://lavie.orangedigitalcenteregypt.com'+
+                                                    list[3]['imageUrl'])
+                                                ,scale:0.7,
+                                              height:120,width:100
+                                            ),
                                           ),
-                                        ),
-                                        SizedBox(height:11),
-                                        Flexible(
-                                          child: Text('5 Simple Tips treat plant ',
-                                              softWrap: false,
-                                              style:TextStyle(
-                                                  fontSize: 14,
-                                                  overflow: TextOverflow.ellipsis,
-                                                  fontWeight: FontWeight.w500
-                                              )
+                                          SizedBox(height:20),
+                                          Flexible(
+                                            child: Text('2 days ago ',
+                                                style:TextStyle(
+                                                    color: Colors.green,
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w500
+                                                )
+                                            ),
                                           ),
-                                        ),
-                                        SizedBox(height:14),
-                                        Text(
-
-                                          'leaf, in botany, any usually'
-                                            ' flattened green outgrowth from the stem of leaf\n, in botany,\n any usually'
-                                            ' flattened gree\nn outgrowth from the stem of leaf, in botany,\n any usually'
-                                            ' flattened green outgrowth from the stem of leaf, in botany\n, any usually'
-                                            ' flattened green outgrowth from the stem of leaf, in botany\n, any usually'
-                                            ' flattened green outgrowth from the stem of   ',
+                                          SizedBox(height:11),
+                                          Flexible(
+                                            child: Text(list[index]['name'],
+                                                softWrap: false,
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    overflow: TextOverflow.ellipsis,
+                                                    fontWeight: FontWeight.w500
+                                                )
+                                            ),
+                                          ),
+                                          SizedBox(height:14),
+                                          Text(
+                                            list[index]['description'],
                                             maxLines:5,
                                             softWrap: true,
                                             style:TextStyle(
@@ -688,18 +725,19 @@ class _WelcomeWebScreenState extends State<WelcomeWebScreen> {
                                                 fontWeight: FontWeight.w500
                                             ),
 
-                                        )
-                                      ]
-                                  ),
-                                ),
+                                          )
+                                        ]
+                                    ),
+                                  );
+                                },
+                                separatorBuilder: (BuildContext context, int index) {
+                                  return const SizedBox(
+                                      width: 12
+                                  );
+                                },
+                                itemCount: list.length,
                               );
                             },
-                            separatorBuilder: (BuildContext context, int index) {
-                              return const SizedBox(
-                                  width: 12
-                              );
-                            },
-                            itemCount: 10,
                           ),
                         ),
                       ),
@@ -978,33 +1016,33 @@ class _WelcomeWebScreenState extends State<WelcomeWebScreen> {
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text('CONTACT US',
+                              children: const [
+                                Text('CONTACT US',
                                     style:TextStyle(
                                         fontSize: 16,
                                         color : Colors.green,
                                         fontWeight: FontWeight.w600
                                     )
                                 ),
-                                const Text('Phone 01244522323',
+                                Text('Phone 01244522323',
                                     style:TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600
                                     )
                                 ),
-                                const Text('Phone 01244522323',
+                                Text('Phone 01244522323',
                                     style:TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600
                                     )
                                 ),
-                                const Text('Email: Rawan@Gmail.com',
+                                Text('Email: Rawan@Gmail.com',
                                     style:TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600
                                     )
                                 ),
-                                const Text('Address : 6 October City, Giza \n'
+                                Text('Address : 6 October City, Giza \n'
                                     ',Egypt',
                                     style:TextStyle(
                                         fontSize: 16,

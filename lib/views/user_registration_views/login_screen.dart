@@ -159,7 +159,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 const Text('Remember me'),
                                 const Spacer(),
                                 GestureDetector(
-                                  onTap: (){},
+                                  onTap: (){
+                                    _dioInstance!.forgotPassword(
+                                        context: context,
+                                        email: _email!.text
+                                    );
+                                  },
                                   child: const Text('Forgot Password?',
                                   style : TextStyle(
                                     color : Colors.greenAccent,
@@ -184,17 +189,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                   context: context
                                 );
                             },
-                            child: const SizedBox(
-                              width: double.infinity,
-                              child: Center(
-                                child: Padding(
-                                  padding: EdgeInsets.only(top: 15.0,
-                                      bottom: 15.24),
-                                  child: Text('Login',
-                                      style: TextStyle(
-                                          fontSize: 16
-                                      )),
-                                ),
+                            child: Center(
+                              child: Padding(
+                                padding: EdgeInsets.only(top: 15.0,
+                                    bottom: 15.24),
+                                child: Text('Login',
+                                    style: TextStyle(
+                                        fontSize: 16
+                                    )),
                               ),
                             ),
                           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hackathon/models/questions_model.dart';
+import 'package:flutter_hackathon/views/web_views/welcome_web_screen.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 
@@ -21,8 +22,6 @@ class _CourseExamScreenState extends State<CourseExamScreen> {
   @override
   void initState() {
     super.initState();
-
-    PageController _pageController = PageController();
 
   }
   @override
@@ -418,6 +417,15 @@ class _CourseExamScreenState extends State<CourseExamScreen> {
                                           setState(() {
                                             questionIndex++;
                                           });
+                                        }
+                                        else {
+                                          Navigator.pushAndRemoveUntil(
+                                              context,
+                                              MaterialPageRoute(builder:
+                                                  (BuildContext context) =>
+                                                        WelcomeWebScreen('True')),
+                                              ModalRoute.withName('/')
+                                          );
                                         }
                                       },
                                       child: SizedBox(

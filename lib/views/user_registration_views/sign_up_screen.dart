@@ -390,26 +390,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                               ,password:_password!.text,
                                               context: context);
                                       },
-                                      child: Expanded(
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment
-                                              .center,
-                                          crossAxisAlignment: CrossAxisAlignment
-                                              .center,
-                                          children: [
-                                            Image.asset(
-                                                'assets/google_login_icon.png',
-                                                width: 32.03, height: 33.04
-                                            ),
-                                            const SizedBox(width: 13.49),
-                                            const Text('Continue with Google',
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: Colors.greenAccent,
-                                                )),
-                                            const Spacer()
-                                          ],
-                                        ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment
+                                            .center,
+                                        crossAxisAlignment: CrossAxisAlignment
+                                            .center,
+                                        children: [
+                                          Image.asset(
+                                              'assets/google_login_icon.png',
+                                              width: 32.03, height: 33.04
+                                          ),
+                                          const SizedBox(width: 13.49),
+                                          const Text('Continue with Google',
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.greenAccent,
+                                              )),
+                                          const Spacer()
+                                        ],
                                       )
                                   ),
                                 ),

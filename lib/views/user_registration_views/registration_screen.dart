@@ -3,6 +3,8 @@ import 'package:flutter_hackathon/views/user_registration_views/sign_up_screen.d
 
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
+import '../../controllers/network/dio_creator.dart';
+import '../../controllers/singletons/DioSingleton.dart';
 import 'login_screen.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -17,12 +19,12 @@ class _RegistrationScreenState extends State<RegistrationScreen>
 
   TabController? _tabController;
 
-
   @override
   void initState() {
     super.initState();
     FlutterNativeSplash.remove();
     _tabController = TabController(length: 2, vsync: this);
+
   }
 
   @override
@@ -85,7 +87,9 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                           elevation: 0,
                           color: const Color(0xFF1ABC00),
                           onPressed: () {
-
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(builder: (context) =>
+                              const RegistrationScreen()) , (route) => false);
                           },
                           child: const Center(
                             child: Padding(

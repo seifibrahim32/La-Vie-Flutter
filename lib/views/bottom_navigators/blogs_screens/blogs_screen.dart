@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hackathon/controllers/network/dio_creator.dart';
 
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
+import '../../../controllers/singletons/DioSingleton.dart';
 
 class BlogsScreen extends StatefulWidget {
   const BlogsScreen({Key? key}) : super(key: key);
@@ -12,10 +14,12 @@ class BlogsScreen extends StatefulWidget {
 
 class _BlogsScreenState extends State<BlogsScreen> {
 
+  DioCreator? _dioInstance ;
 
   @override
   void initState() {
     super.initState();
+    _dioInstance = DioSingleton.getSingleInstance();
   }
 
   @override
@@ -61,6 +65,7 @@ class _BlogsScreenState extends State<BlogsScreen> {
                         const Text('Blog',
                             style:TextStyle(
                                 fontSize: 24,
+                                color: Colors.green,
                                 fontWeight: FontWeight.w600
                             )
                         ),
@@ -108,108 +113,126 @@ class _BlogsScreenState extends State<BlogsScreen> {
                     child: const Text('Blogs',
                         style: TextStyle(
                             fontSize: 32,
-                            color: Colors.green,
                             fontWeight: FontWeight.w600
                         )
                     ),
                   ),
                   const SizedBox(height:46),
                   Expanded(
-                    child: SingleChildScrollView(
+                    child:
+                    SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left:118.0,
-                          right: 126
-                        ),
-                        child: GridView.builder(
-                          shrinkWrap: true,
-                          itemCount :10,
-                          gridDelegate: const
-                          SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              crossAxisSpacing: 74,
-                              mainAxisSpacing:74,
-                              mainAxisExtent:340
-                          ),
-                          itemBuilder: (BuildContext context, int index) {
-                            return Expanded(
-                              child: Container(
-                                  height: double.infinity,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.white,
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        offset: Offset(12,11),
-                                        spreadRadius: 4,
-                                        color: Color(0x1A2E2E2E),
-                                        blurRadius: 30,
-                                      ),
-                                    ],
-                                  ),
-                                  child: Expanded(
-                                    child: Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.start,
-                                        children:[
-                                          ClipRRect(
-                                            borderRadius: BorderRadius.circular(10),
-                                            child: Image.network(
-                                                'https://www.nme.com/wp-content/'
-                                                    'uploads/2022/02/rihanna-2000x'
-                                                    '1270-1.jpg'
-                                                ,scale:0.7
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                                children : const [
-                                                  SizedBox(height:20),
-                                                  Flexible(
-                                                    child: Text('2 days ago ',
-                                                        style:TextStyle(
-                                                            color: Colors.green,
-                                                            fontSize: 14,
-                                                            fontWeight: FontWeight.w500
-                                                        )
-                                                    ),
-                                                  ),
-                                                  SizedBox(height:11),
-                                                  Flexible(
-                                                    child: Text('5 Simple Tips treat plant ',
-                                                        style:TextStyle(
-                                                            fontSize: 14,
-                                                            fontWeight: FontWeight.w500
-                                                        )
-                                                    ),
-                                                  ),
-                                                  SizedBox(height:14),
-                                                  Text('leaf, in botany, any usually'
-                                                      ' flattened green outgrowth from the stem of  ',
-                                                      maxLines:5,
-                                                      style:TextStyle(
-                                                          fontSize: 12,
-                                                          fontWeight: FontWeight.w500
-                                                      )
-                                                  ),
-                                                ]
-                                              ),
-                                            ),
-                                          )
-                                        ]
-                                    ),
-                                  )
-                              ),
-                            );
-                          },
-                        ),
+                      child: FutureBuilder<Map<String, dynamic>>(
+                        future: _dioInstance!.getBlogs(),
+                        builder: (context,snapshot){
+
+                          List list = snapshot.data!['data']['plants'];
+                          if(
+                          snapshot.connectionState == ConnectionState.waiting
+                          || snapshot.connectionState == ConnectionState.none
+                          ){
+                            return const CircularProgressIndicator();
+                          }
+                          else {
+                            return  Padding(
+                           padding: const EdgeInsets.only(
+                               left:118.0,
+                               right: 126
+                           ),
+                           child: GridView.builder(
+                             shrinkWrap: true,
+                             physics: const BouncingScrollPhysics(),
+                             itemCount : list.length ,
+                             gridDelegate: const
+                             SliverGridDelegateWithFixedCrossAxisCount(
+                                 crossAxisCount: 3,
+                                 crossAxisSpacing: 74,
+                                 mainAxisSpacing:74,
+                                 mainAxisExtent:340
+                             ),
+                             itemBuilder: (BuildContext context, int index) {
+                               return Container(
+                                   height: double.infinity,
+                                   decoration: BoxDecoration(
+                                     borderRadius: BorderRadius.circular(10),
+                                     color: Colors.white,
+                                     boxShadow: const [
+                                       BoxShadow(
+                                         offset: Offset(12,11),
+                                         spreadRadius: 4,
+                                         color: Color(0x1A2E2E2E),
+                                         blurRadius: 30,
+                                       ),
+                                     ],
+                                   ),
+                                   child: Column(
+                                       crossAxisAlignment:
+                                       CrossAxisAlignment.start,
+                                       mainAxisAlignment:
+                                       MainAxisAlignment.start,
+                                       children:[
+                                         SizedBox(
+                                           height:210,
+                                           child: ClipRRect(
+                                             clipBehavior : Clip.antiAliasWithSaveLayer,
+                                             borderRadius: BorderRadius.circular(10),
+                                             child: Image.network(
+                                               fit: BoxFit.fitWidth,
+                                                 list[index]['imageUrl'] != ""?
+                                                   ('https://lavie.orangedigitalcenteregypt.com'+
+                                                     list[index]['imageUrl']):
+                                               ('https://lavie.orangedigitalcenteregypt.com'+
+                                               list[3]['imageUrl'])
+                                                 ,scale:0.7
+                                             ),
+                                           ),
+                                         ),
+                                         Expanded(
+                                           child: Padding(
+                                             padding: const EdgeInsets.all(8.0),
+                                             child: Column(
+                                                 crossAxisAlignment:
+                                                 CrossAxisAlignment.start,
+                                                 children :   [
+                                                   SizedBox(height:20),
+                                                   Flexible(
+                                                     child: Text('2 days ago ',
+                                                         style:TextStyle(
+                                                             color: Colors.green,
+                                                             fontSize: 14,
+                                                             fontWeight: FontWeight.w500
+                                                         )
+                                                     ),
+                                                   ),
+                                                   SizedBox(height:11),
+                                                   Flexible(
+                                                     child: Text('${list[index]['name']}',
+                                                         style:TextStyle(
+                                                             fontSize: 14,
+                                                             fontWeight: FontWeight.w500
+                                                         )
+                                                     ),
+                                                   ),
+                                                   SizedBox(height:14),
+                                                   Text(list[index]['description'],
+                                                       maxLines:5,
+                                                       style:TextStyle(
+                                                           fontSize: 12,
+                                                           fontWeight: FontWeight.w500
+                                                       )
+                                                   ),
+                                                 ]
+                                             ),
+                                           ),
+                                         )
+                                       ]
+                                   )
+                               );
+                             },
+                           ),
+                         );
+                          }
+                        },
                       ),
                     ),
                   ),
@@ -230,7 +253,7 @@ class _BlogsScreenState extends State<BlogsScreen> {
                   centerTitle: true,
                   title: const Text('Blogs',
                     style: TextStyle(
-                        color: Colors.black
+                        color: Colors.green
                     ),
                   )),
               body: Column(
