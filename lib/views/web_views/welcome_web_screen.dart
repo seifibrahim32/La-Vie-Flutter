@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../controllers/network/dio_creator.dart';
@@ -26,10 +27,17 @@ class _WelcomeWebScreenState extends State<WelcomeWebScreen> {
 
   DioCreator? _dioInstance ;
 
+
   @override
-  void initState() {
+  void initState()  {
     super.initState();
     _dioInstance = DioSingleton.getSingleInstance();
+    getFreeSeedsDialog();
+  }
+
+  Future getFreeSeedsDialog() async {
+    var instance  = await SharedPreferences.getInstance();
+    instance.getBool('doneFreeSeeds') == true? null:
     Future.delayed(const Duration(seconds:3),() => showAlert(context));
   }
 
@@ -122,12 +130,13 @@ class _WelcomeWebScreenState extends State<WelcomeWebScreen> {
   void showAlert(BuildContext context) {
     TextEditingController _getFreeSeedsController = TextEditingController();
     showDialog(
+        useSafeArea : false,
         context: context,
         builder: (context) => AlertDialog(
+          contentPadding: EdgeInsets.zero,
           content: Row(
             children:[
               Image.asset('assets/web/alert-dialog-web-home.png',
-                fit: BoxFit.fitHeight,
               ),
               Expanded(
                 child: Padding(
@@ -177,7 +186,6 @@ class _WelcomeWebScreenState extends State<WelcomeWebScreen> {
                           elevation: 0,
                           color: Colors.green,
                           onPressed: () {
-
                             _dioInstance!.getFreeSeeds(context: context,email:
                             _getFreeSeedsController.text);
 
@@ -203,6 +211,7 @@ class _WelcomeWebScreenState extends State<WelcomeWebScreen> {
                           elevation: 0,
                           color: Colors.grey,
                           onPressed: () {
+                            Navigator.of(context).pop();
                           },
                           child: const SizedBox(
                             child: Text('Save For Later',
@@ -223,11 +232,9 @@ class _WelcomeWebScreenState extends State<WelcomeWebScreen> {
   @override
   Widget build(BuildContext context){
     FlutterNativeSplash.remove();
-
     return Scaffold(
       extendBody : true,
-      body:
-        Stack(
+      body: Stack(
           children : [
             Align(
               alignment: Alignment.topRight,
@@ -327,7 +334,7 @@ class _WelcomeWebScreenState extends State<WelcomeWebScreen> {
                         ),
                       ),
                     ),
-                    widget.done=="False"?Stack(
+                    Stack(
                       children: [
                         Align(
                           widthFactor: 35,
@@ -344,7 +351,8 @@ class _WelcomeWebScreenState extends State<WelcomeWebScreen> {
                                       context,
                                       MaterialPageRoute(builder:
                                           (BuildContext context) =>
-                                              CourseExamScreen()),
+                                              CourseExamScreen()
+                                      ),
                                       ModalRoute.withName('/')
                                   );
                                 },
@@ -373,7 +381,7 @@ class _WelcomeWebScreenState extends State<WelcomeWebScreen> {
                                 Container(
                                     width:545,
                                     height:844,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                         color: Colors.white,
                                         borderRadius: BorderRadius.only(
                                           bottomRight: Radius.circular(390) ,
@@ -381,7 +389,7 @@ class _WelcomeWebScreenState extends State<WelcomeWebScreen> {
                                         )
                                     )
                                 ),
-                                Image(
+                                const Image(
                                   gaplessPlayback:true,
                                   image : AssetImage(
                                     'assets/web/full_tree_web.png',
@@ -392,7 +400,7 @@ class _WelcomeWebScreenState extends State<WelcomeWebScreen> {
                                 )
                               ],
                             ),
-                            Spacer(),
+                            SizedBox(width:90),
                             Expanded(
                               child: Column(
                                 mainAxisAlignment : MainAxisAlignment.center,
@@ -450,7 +458,7 @@ class _WelcomeWebScreenState extends State<WelcomeWebScreen> {
                           ],
                         ),
                       ]
-                    ):Container(width:0,height:0),
+                    ),
                     Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children :[
@@ -689,7 +697,7 @@ class _WelcomeWebScreenState extends State<WelcomeWebScreen> {
                                                     list[index]['imageUrl']):
                                                 ('https://lavie.orangedigitalcenteregypt.com'+
                                                     list[3]['imageUrl'])
-                                                ,scale:0.7,
+                                                ,scale:0.1,
                                               height:120,width:100
                                             ),
                                           ),
@@ -708,7 +716,7 @@ class _WelcomeWebScreenState extends State<WelcomeWebScreen> {
                                             child: Text(list[index]['name'],
                                                 softWrap: false,
                                                 style: TextStyle(
-                                                    fontSize: 14,
+                                                    fontSize: 19,
                                                     overflow: TextOverflow.ellipsis,
                                                     fontWeight: FontWeight.w500
                                                 )

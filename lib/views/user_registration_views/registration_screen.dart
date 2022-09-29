@@ -24,7 +24,6 @@ class _RegistrationScreenState extends State<RegistrationScreen>
     super.initState();
     FlutterNativeSplash.remove();
     _tabController = TabController(length: 2, vsync: this);
-
   }
 
   @override
@@ -33,7 +32,7 @@ class _RegistrationScreenState extends State<RegistrationScreen>
       length:2,
       child: Scaffold(
         backgroundColor: Colors.white,
-        body:LayoutBuilder(
+        body: LayoutBuilder(
           builder: (content , constraints){
             // Registration Screen -- Web / Windows version
             if(constraints.widthConstraints().biggest
@@ -125,11 +124,13 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                       tabs: const [
                         Tab(
                             child: Text('Sign up',
-                              style: TextStyle(fontSize: 18),)
+                              style: TextStyle(fontSize: 18),
+                            )
                         ),
                         Tab(
                             child: Text('Login',
-                              style: TextStyle(fontSize: 18),)
+                              style: TextStyle(fontSize: 18),
+                            )
                         )
                       ],
                       controller: _tabController,
@@ -139,9 +140,9 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                   Expanded(
                     child: TabBarView(
                       controller: _tabController,
-                      children: const [
-                        SignUpScreen(),
-                        LoginScreen()
+                      children: [
+                        SignUpScreen(tabController: _tabController),
+                        LoginScreen(tabController: _tabController)
                       ],
                     ),
                   ),
@@ -190,9 +191,9 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                     Expanded(
                       child: TabBarView(
                         controller: _tabController,
-                        children: const [
-                          SignUpScreen(),
-                          LoginScreen()
+                        children:  [
+                          SignUpScreen(tabController: _tabController),
+                          LoginScreen(tabController: _tabController)
                         ],
                       ),
                     ),

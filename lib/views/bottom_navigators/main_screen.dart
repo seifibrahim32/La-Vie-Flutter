@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+
 import '../home_main_screen_get_views/getAllKinds.dart';
 import '../home_main_screen_get_views/getPlantsView.dart';
 import '../home_main_screen_get_views/getSeedsViews.dart';
 import '../home_main_screen_get_views/getToolsView.dart';
 class MainScreen extends StatefulWidget{
   const MainScreen({super.key});
-
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -30,6 +31,7 @@ class _MainScreenState extends State<MainScreen>
 
   @override
   Widget build(BuildContext context) {
+    FlutterNativeSplash.remove();
     return DefaultTabController(
       length: 4,
       child: Column(
@@ -86,7 +88,8 @@ class _MainScreenState extends State<MainScreen>
                         ),
                       ),
                     )
-                  ]),
+                  ]
+              ),
             ),
             const SizedBox(height:26.0),
             TabBar(

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:google_sign_in/google_sign_in.dart';
 import '../../models/blogs_model.dart';
 import '../../models/forums_model.dart';
 import '../../models/registration_models/facebook_model.dart';
@@ -9,6 +9,7 @@ import '../../models/registration_models/forgot_password_model.dart';
 import '../../models/registration_models/google_model.dart';
 import '../../models/registration_models/signin_model.dart';
 import '../../models/registration_models/signup_model.dart';
+import '../../views/web_views/welcome_web_screen.dart';
 
 class DioCreator {
 
@@ -23,27 +24,53 @@ class DioCreator {
 
   Response? _res ;
 
-  SharedPreferences? accessToken ;
+  SharedPreferences? accessToken;
 
   Future getSignUpData({required String firstName, required String lastName,
     required String email,
-    required String password}) async {
-
+    required String password,
+  required BuildContext? context}) async {
     try{
       accessToken =  await SharedPreferences.getInstance();
-      _res = await
-      _dio.post('auth/signup',data: SignUpModel(
+      _res = await _dio.post('auth/signup',data: SignUpModel(
           firstName: firstName,
           lastName:
           lastName,email: email,password: password)
           .toJson()
       );
-    } on DioError catch(e){
-      print(e.response);
-    }
-    await accessToken?.setString('accessToken', _res!.data["data"]["accessToken"]);
-    print(_res!.data["data"]["accessToken"]);
+      if(_res!.statusCode == 200){
+        SnackBar snackBar = SnackBar(
+            content:  Text('Successfully Signed Up',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold
+                )),
+            backgroundColor: Colors.green
+        );
+        ScaffoldMessenger.of(context!).showSnackBar(snackBar);
 
+        await accessToken!.setString('accessToken', _res!.data["data"]["accessToken"]);
+        print(_res!.data["data"]["accessToken"]);
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context){
+          return WelcomeWebScreen('');
+          }), (route) => false);
+
+      }
+    } on DioError catch(e){
+      if(e.response!.statusCode == 400){
+        print(e.response);
+        SnackBar snackBar = SnackBar(
+            content:  Text(e.response!.data['message'][0],
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold
+                )),
+            backgroundColor: Colors.red
+        );
+        ScaffoldMessenger.of(context!).showSnackBar(snackBar);
+      }
+
+    }
   }
 
   Future setEmailSignInData({required String email, required String password,
@@ -54,7 +81,6 @@ class DioCreator {
        _dio.options.headers = {
          'Accept': '*/*',
          'Content-Type' :'application/json',
-         'Authorization': 'Bearer ${accessToken?.getString('accessToken')}'
        };
 
        try{
@@ -63,16 +89,25 @@ class DioCreator {
              .toJson()
          );
 
-         SnackBar snackBar = SnackBar(
-             content:  Text(_res!.data['message'].toString(),
-                 style: TextStyle(
-                     color: Colors.white,
-                     fontWeight: FontWeight.bold
-                 )),
-             backgroundColor: Colors.green
-         );
-         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+         if(_res!.statusCode == 200){
+           print(_res!.data);
+           SnackBar snackBar = SnackBar(
+               content:  Text(_res!.data['message'],
+                   style: TextStyle(
+                       color: Colors.white,
+                       fontWeight: FontWeight.bold
+                   )),
+               backgroundColor: Colors.green
+           );
+           accessToken!.setString('accessToken', _res!.data['data']['accessToken']);
+           ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
+           Navigator.of(context).pushAndRemoveUntil(
+             MaterialPageRoute(builder: (context) {
+             return WelcomeWebScreen('');
+           }),(route) => false,);
+
+         }
        } on DioError catch(e){
          if(e.response!.statusCode == 400){
            SnackBar snackBar = SnackBar(
@@ -147,16 +182,16 @@ class DioCreator {
       'Content-Type' :'application/json',
     };
 
+
     try{
+      final googleSignIn = GoogleSignIn(
+          clientId: '777271892775-nn2nc761m0is94a00ksmqngmqfrklagf'
+              '.apps.googleusercontent.com');
+      final user = await googleSignIn.signIn(
+      );
       _res = await _dio.post('auth/google',data:
-     GoogleModel(id: '11',firstName: 'Seif',lastName: 'Ashraf',
-     email: 'seifibrahim32@gmail.com',picture: 'https://scontent.'
-             'fcai20-2.fna.fbcdn.net/v/t39.30808-6/251077718_1511540'
-             '229189372_4515220514536525707_n.jpg?_nc_cat=104&ccb=1-7&_n'
-             'c_sid=09cbfe&_nc_eui2=AeHloSMz1Rxxzj6SoT7vCTxoBP6y2jUFWUEE_r'
-             'LaNQVZQXw7nAdAPQLRu3qybmiZAgnhJ75ilkAzTT9gY1JA24kG&_nc_ohc=wc-n'
-             'KbyQGIwAX_jjca4&_nc_ht=scontent.fcai20-2.fna&oh=00_AT91Kdz0O6LU'
-             '1W07uIy-U6cyFD9pcX5Ebt2ie2cb3yD80w&oe=630C4976')
+     GoogleModel(id: user!.id,firstName: user.displayName,lastName: '',
+     email: user.email,picture: user.photoUrl)
           .toJson()
       );
 
@@ -186,7 +221,6 @@ class DioCreator {
   }
 
   Future<Map<String, dynamic>> getBlogs() async {
-
     accessToken =  await SharedPreferences.getInstance();
 
     _dio.options.headers = {
@@ -196,12 +230,12 @@ class DioCreator {
     };
     try{
       _res = await _dio.get('products/blogs');
-      //print(BlogsModel.fromJson(_res!.data).toJson().runtimeType);
+      print(BlogsModel.fromJson(_res!.data).toJson());
     } on DioError catch(e){
       if(e.response!.statusCode == 400){
+
       }
     } return BlogsModel.fromJson(_res!.data).toJson();
-
   }
 
   Future forgotPassword({required String email ,
@@ -221,14 +255,18 @@ class DioCreator {
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          return Material(
-              color: Colors.white,
-              child: Center(
-                  child: Text(_res!.data['message']+ "\nCLICK ESC TO EXIT")
-              )
+          return AlertDialog(
+            content: Text(_res!.data['message']+ "\nCLICK ESC TO EXIT",
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 19,
+                  fontWeight: FontWeight.w500
+              ),),
           );
         },
-      ).then((value) => verifyOTP(email , context)
+      ).then((value) {
+        verifyOTP(email , context);
+      }
       );
 
     } on DioError catch(e){
@@ -248,7 +286,7 @@ class DioCreator {
 
   Future verifyOTP(String email,BuildContext context){
 
-    TextEditingController _otp = TextEditingController();
+    TextEditingController otp = TextEditingController();
 
     return showDialog(
       context: context,
@@ -256,16 +294,17 @@ class DioCreator {
         return Material(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Write the sent OTP Code',
+              const Text('Write the sent OTP Code',
                 style: TextStyle(
                     fontSize: 15
                 ),),
               SizedBox(
-                width:20,
+                width:90,
                 child: TextField(
                   maxLines: 1,
-                  controller: _otp,
+                  controller: otp,
                 ),
               ),
               SizedBox(height:10),
@@ -276,36 +315,32 @@ class DioCreator {
                   try {
                     _res = await _dio.post('auth/verify-otp', data: {
                       'email': email,
-                      'otp': _otp.text });
+                      'otp': otp.text }
+                    );
 
                     if(_res!.statusCode == 200){
+                      print('${_res!.data}');
+                      Navigator.of(context).pop();
                       resetPassword(
                         email : email,
                         context : context,
-                        otp: _otp.text
-
+                        otp: otp.text
                       );
                     }
-
-                  } on DioError {
-
-                    if(_res!.data['type'] == "invalidOTP"){
-                      print("${_res!.data['type']}");
-                      SnackBar snackBar = SnackBar(
-                          content: Text('Invalid OTP',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold
-                              )
-                          ),
-                          backgroundColor: Colors.red
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  } on DioError catch (e) {
+                    print(e.response!.data['type']);
+                    if(e.response!.data['type'] == 'invalidOTP'){
+                     showDialog(context: context, builder: (context){
+                       return const AlertDialog(
+                         title: Text('invalid OTP code'),
+                       );
+                     });
                     }
                   }
                 },
                 child: const Text('Verify OTP',
-                    style: TextStyle(color: Colors.white)),
+                    style: TextStyle(color: Colors.white,
+                    fontWeight: FontWeight.w700)),
               )
             ],
           ),
@@ -317,44 +352,66 @@ class DioCreator {
   Future resetPassword({
     required String email,required BuildContext context
     ,required String otp}) async {
-
     return
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          TextEditingController _verifyPassword =
+          TextEditingController verifyPassword =
           TextEditingController();
           return Material(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Column(
-                    children:[
-                      TextField(
-                        maxLines: 1,
-                        controller: _verifyPassword,
-                      ),
-                      SizedBox(height:10),
-                      MaterialButton(
-                        color: Colors.blue,
-                        minWidth: 545,
-                        height:144,
-                        child: Text('Reset Password',style:
-                        TextStyle(
-                            color: Colors.white
-                        )),
-                        onPressed: () async {
-                          _res = await _dio.post(
-                              'auth/reset-password', data: {
-                            'email': email,
-                            'otp'  : otp,
-                            'password' : _verifyPassword.text
-                          }
-                          );
-                        },
-                      )
-                    ]
+                SizedBox(
+                  width:120,
+                  child: TextField(
+                    maxLines: 1,
+                    controller: verifyPassword,
+                  ),
                 ),
                 SizedBox(height:10),
+                MaterialButton(
+                  color: Colors.blue,
+                  minWidth: 245,
+                  height:144,
+                  child: Text('Reset Password',style:
+                  TextStyle(
+                      color: Colors.white
+                  )),
+                  onPressed: () async {
+                    try {
+                      _res = await _dio.post(
+                          'auth/reset-password', data: {
+                            'email': email,
+                            'otp': otp,
+                            'password': verifyPassword.text
+                          }
+                      );
+                      if(_res!.statusCode == 200){
+                        showDialog(context: context, builder: (context){
+                        return const AlertDialog(
+                          backgroundColor: Colors.green,
+                          title: Text(
+                              'Password changed successfully',
+                              style: TextStyle(
+                              color:Colors.white)
+                          ),
+                        );
+                        });
+                      }
+                    } on DioError catch(error){
+                      print(error.response!.data);
+                      showDialog(context: context, builder: (context){
+                        return AlertDialog(
+                          backgroundColor: Colors.red,
+                          title: Text('Invalid PASSWORD',style: TextStyle(
+                              color:Colors.white)),
+                        );
+                      });
+                    }
+                  },
+                ),
+                SizedBox(height:40),
               ],
             ),
           );
@@ -384,7 +441,9 @@ class DioCreator {
           backgroundColor: Colors.green
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
+      if(_res!.statusCode == 200){
+        accessToken!.setBool('doneFreeSeeds' , true);
+      }
     } on DioError{
 
       SnackBar snackBar = SnackBar(
@@ -401,13 +460,12 @@ class DioCreator {
 
   }
 
-
   Future getAllForums() async {
 
     _dio.options.headers = {
       'Accept': '*/*',
       'Content-Type' :'application/json',
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YzI4OTk3Yi1mNjQ3LTRmYmEtOThhMy01MjNjMDY3Mzc4MjciLCJpYXQiOjE2NjE0MzgzNjIsImV4cCI6MTY2MTYxMTE2Mn0.vWv5pd3YaXn7mURUuyrWmeqz2DK_i_FDOIWF3juGeXE'
+      'Authorization': 'Bearer ${accessToken?.getString('accessToken')}'
     };
     try{
       _res = await _dio.get('forums',queryParameters:

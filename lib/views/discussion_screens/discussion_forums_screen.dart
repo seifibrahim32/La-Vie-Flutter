@@ -38,8 +38,9 @@ class _DiscussionScreenState extends State<DiscussionScreen>
             length: 2,
             child: Scaffold(
                 backgroundColor: Colors.white,
-                body: Column(children: [
-                  Container(
+                body: Column(
+                    children: [
+                      Container(
                     color: Colors.white,
                     child: Padding(
                       padding: const EdgeInsets.only(
@@ -93,8 +94,8 @@ class _DiscussionScreenState extends State<DiscussionScreen>
                       ),
                     ),
                   ),
-                  const SizedBox(height: 29),
-                  Container(
+                      const SizedBox(height: 29),
+                      Container(
                     alignment: Alignment.center,
                     width: double.infinity,
                     color: Colors.white,
@@ -102,7 +103,7 @@ class _DiscussionScreenState extends State<DiscussionScreen>
                         style: TextStyle(
                             fontSize: 32, fontWeight: FontWeight.w600)),
                   ),
-                  Padding(
+                      Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 118.0),
                     child: Stack(
                       alignment: Alignment.bottomCenter,
@@ -173,8 +174,8 @@ class _DiscussionScreenState extends State<DiscussionScreen>
                       ],
                     ),
                   ),
-                  Expanded(
-                    child: Container(
+                      Expanded(
+                        child: Container(
                       color: Colors.grey[100],
                       padding: const EdgeInsets.symmetric(horizontal: 118.0),
                       child: Column(
@@ -737,7 +738,8 @@ class _DiscussionScreenState extends State<DiscussionScreen>
                                                       color: Colors.green,
                                                       fontSize: 16))),
                                           const SizedBox(height: 54),
-                                        ]),
+                                        ]
+                                    ),
                                   ),
                                 )
                               ],
@@ -748,7 +750,9 @@ class _DiscussionScreenState extends State<DiscussionScreen>
                       ),
                     ),
                   ),
-                ])),
+                    ]
+                )
+            ),
           );
         }
         // Mobile version

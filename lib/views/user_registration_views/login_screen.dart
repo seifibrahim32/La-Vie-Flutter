@@ -8,22 +8,26 @@ import '../../controllers/singletons/DioSingleton.dart';
 import '../../controllers/validators/text_form_fields_validators.dart';
 
 class LoginScreen extends StatefulWidget{
-  const LoginScreen({super.key});
+  TabController? tabController;
+  LoginScreen({this.tabController,super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen>
+    with SingleTickerProviderStateMixin{
 
   DioCreator? _dioInstance ;
   late TextEditingController? _email;
+  TabController? tabController;
   late TextEditingController? _password;
 
   GlobalKey<FormState> _signInKey = GlobalKey<FormState>();
   @override
   void initState() {
     super.initState();
+    tabController = widget.tabController;
     FlutterNativeSplash.remove();
     _email = TextEditingController();
     _password = TextEditingController();
@@ -32,19 +36,18 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: LayoutBuilder(
         builder: (ctx,constraints){
           if(constraints.widthConstraints().biggest
               .width >= 1366) {
             return SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const SizedBox(height: 82),
-              Stack(
-                alignment: Alignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 20),
+                  Stack(
+                alignment: Alignment.topCenter,
                 children: [
                   Align(
                     heightFactor: 2,
@@ -113,7 +116,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               style: TextStyle(
                                   color: Color(0xff6f6f6f),
                                   fontSize: 14
-                              )),
+                              )
+                          ),
                           const SizedBox(height: 3.8),
                           TextFormField(
                             controller: _password,
@@ -207,7 +211,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 const Text('Don\'t have an account?'),
                                 const SizedBox(width: 8),
                                 GestureDetector(
-                                  onTap: (){},
+                                  onTap: () {
+                                    tabController!.animateTo(0);
+                                  },
                                   child: const Text('Sign Up',
                                       style :TextStyle(
                                         color : Colors.greenAccent,
@@ -322,9 +328,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
-            ],
-          ),
-        );
+                ],
+              ),
+            );
           }
           return SingleChildScrollView(
             child: Column(
@@ -368,8 +374,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderRadius: BorderRadius.circular(25.7),
                             ),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(color: Color(
-                                  0xFF939393)),
+                              borderSide: const BorderSide(
+                                  color: Color(0xFF939393)
+                              ),
                               borderRadius: BorderRadius.circular(5.0),
                             ),
                           ),

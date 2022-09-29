@@ -8,14 +8,18 @@ import '../../controllers/singletons/DioSingleton.dart';
 import '../../controllers/validators/text_form_fields_validators.dart';
 
 class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+  TabController? tabController;
+  SignUpScreen({this.tabController,super.key});
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _SignUpScreenState extends State<SignUpScreen>
+    with SingleTickerProviderStateMixin{
 
+
+  TabController? tabController;
   late TextEditingController? _email;
   late TextEditingController? _password;
   late TextEditingController? _confirmPassword;
@@ -28,6 +32,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   void initState() {
     super.initState();
     FlutterNativeSplash.remove();
+    tabController = widget.tabController;
     _dioInstance = DioSingleton.getSingleInstance();
 
     _email = TextEditingController();
@@ -92,7 +97,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                             )
                                         ),
                                         const SizedBox(height: 3.8),
-                                        TextField(
+                                        TextFormField(
+                                          validator : (firstName){
+                                            if(firstName!.length < 1){
+                                              return 'Not correct';
+                                            }
+                                          },
                                           controller: _firstname,
                                           autofocus: false,
                                           style: const TextStyle(fontSize: 15.0,
@@ -144,7 +154,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                             )
                                         ),
                                         const SizedBox(height: 3.8),
-                                        TextField(
+                                        TextFormField(
+                                          validator : (lastName){
+                                            if(lastName!.length < 4){
+                                              return 'Not correct';
+                                            }
+                                          },
                                           controller: _lastname,
                                           autofocus: false,
                                           style: const TextStyle(fontSize: 15.0,
@@ -193,11 +208,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   fontSize: 14
                               )),
                           const SizedBox(height: 3.8),
-                          TextField(
+                          TextFormField(
+                            validator: (val){
+                              if(val!.length < 10){
+                                return 'Not correct';
+                              }
+                              return null;
+                            },
                             controller: _email,
                             autofocus: false,
-                            style: const TextStyle(fontSize: 15.0,
-                                color: Color(0xFFbdc6cf)),
+                            style: const TextStyle(
+                                fontSize: 15.0,
+                                color: Color(0xFFbdc6cf)
+                            ),
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: Colors.white,
@@ -231,7 +254,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               )
                           ),
                           const SizedBox(height: 3.8),
-                          TextField(
+                          TextFormField(
                             controller: _password,
                             autofocus: false,
                             style: const TextStyle(fontSize: 15.0,
@@ -268,11 +291,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   fontSize: 14
                               )),
                           const SizedBox(height: 3.8),
-                          TextField(
+                          TextFormField(
+                            validator: (val){
+                              if(val != _password!.value.text){
+                                return 'Not Equal';
+                              }
+                            },
                             controller: _confirmPassword,
                             autofocus: false,
-                            style: const TextStyle(fontSize: 15.0,
-                                color: Color(0xFFbdc6cf)),
+                            style: const TextStyle(
+                                fontSize: 15.0,
+                                color: Color(0xFFbdc6cf)
+                            ),
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: Colors.white,
@@ -287,7 +317,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                               disabledBorder: UnderlineInputBorder(
                                 borderSide: const BorderSide(
-                                    color: Colors.white),
+                                    color: Colors.white
+                                ),
                                 borderRadius: BorderRadius.circular(25.7),
                               ),
                               enabledBorder: OutlineInputBorder(
@@ -307,6 +338,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             elevation: 0,
                             color: const Color(0xFF1ABC00),
                             onPressed: () {
+                              if(_signUpKey.currentState!.validate()) {
+                                _dioInstance.getSignUpData(
+                                  firstName: _firstname!.text,
+                                  lastName: _lastname!.text,
+                                  email: _email!.text,
+                                  password: _password!.text,
+                                  context: context,
+                                );
+                              }
+                              else {
+                                SnackBar snackBar = SnackBar(
+                                    content: Text('Refill the details'
+                                    ),
+                                    backgroundColor: Colors.green
+                                );
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    snackBar);
+                              }
                             },
                             child: const SizedBox(
                               width: double.infinity,
@@ -330,7 +379,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 const Text('Already have an account?'),
                                 const SizedBox(width: 8),
                                 GestureDetector(
-                                  onTap: () {},
+                                  onTap: () {
+                                    tabController!.animateTo(1);
+                                  },
                                   child: const Text('Sign in',
                                       style: TextStyle(
                                         color: Colors.greenAccent,
@@ -376,13 +427,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 Expanded(
                                   child: MaterialButton(
                                       padding: const EdgeInsets.symmetric(
-                                          vertical: 15,
-                                          horizontal: 22),
+                                          vertical: 22,
+                                          horizontal: 22
+                                      ),
                                       shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(
                                               10.0),
                                           side: const BorderSide(
-                                              color: Colors.greenAccent)
+                                              color: Colors.greenAccent
+                                          )
                                       ),
                                       onPressed: () async {
                                           await  _dioInstance.
@@ -390,33 +443,34 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                               ,password:_password!.text,
                                               context: context);
                                       },
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .center,
-                                        crossAxisAlignment: CrossAxisAlignment
-                                            .center,
-                                        children: [
-                                          Image.asset(
-                                              'assets/google_login_icon.png',
-                                              width: 32.03, height: 33.04
-                                          ),
-                                          const SizedBox(width: 13.49),
-                                          const Text('Continue with Google',
-                                              style: TextStyle(
-                                                fontSize: 16,
-                                                color: Colors.greenAccent,
-                                              )),
-                                          const Spacer()
-                                        ],
+                                      child: Center(
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment
+                                              .center,
+                                          crossAxisAlignment: CrossAxisAlignment
+                                              .center,
+                                          children: [
+                                            Image.asset(
+                                                'assets/google_login_icon.png',
+                                                width: 32.03, height: 33.04
+                                            ),
+                                            const SizedBox(width: 13.49),
+                                            const Text('Continue with Google',
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: Colors.greenAccent,
+                                                )),
+                                          ],
+                                        ),
                                       )
                                   ),
                                 ),
                                 const Spacer(),
                                 Expanded(
                                   child: MaterialButton(
-                                      minWidth: 367.43,
+                                      minWidth: 67.43,
                                       padding: const EdgeInsets.symmetric(
-                                          vertical: 15,
+                                          vertical: 22,
                                           horizontal: 22),
                                       shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(
@@ -426,16 +480,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           )
                                       ),
                                       onPressed: () async {
-                                        await  _dioInstance!.
+                                        await  _dioInstance.
                                         FacebookDataLogin(email:_email!.text
                                             ,password:_password!.text,
                                             context: context);
                                       },
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .center,
-                                        crossAxisAlignment: CrossAxisAlignment
-                                            .center,
                                         children: [
                                           Image.asset(
                                             'assets/facebook_login_icon.png',
@@ -714,6 +764,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 lastName: _lastname!.text,
                                 email: _email!.text,
                                 password: _password!.text,
+                                context: context,
                               );
                             }
                           },
@@ -769,7 +820,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             children: [
                               InkWell(
                                   onTap: () async {
-                                    await  _dioInstance!.
+                                    await  _dioInstance.
                                     GoogleDataLogin(email:_email!.text
                                         ,password:_password!.text,
                                         context: context);
