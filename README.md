@@ -9,6 +9,7 @@ for Android and Web and Windows.
 The idea of the hackathon project is making plants community responsive app to know more about the latest updates for
 plants,also features appear on the application for the user is to add carts for the chosen plants, can create accounts and
 save it to the API.
+Also, I became finalist for the project. with accomplishment 90 % of the whole project.
 
 ## Tools
 - Flutter
@@ -18,7 +19,7 @@ save it to the API.
 - Dio
 - Android Studio
 - Figma
-- 
+
 ## Screenshots
 
 ![32a316ab-4ec7-4c39-8afd-7b6a784983f0](https://user-images.githubusercontent.com/58334300/210794055-f2483c76-42de-4295-90cf-bd59743b0486.jpg)
