@@ -1,6 +1,5 @@
-# La Vie for Flutter Hackathon
+# La Vie App for Orange Flutter Hackathon
 
-Orange Flutter Hackathon
 
 ## Summary about the project
 
@@ -10,11 +9,10 @@ The idea of the hackathon project is making plants community responsive app to k
 plants,also features appear on the application for the user is to add carts for the chosen plants, can create accounts and
 save it to the API.
 Also, I became finalist for the project. with accomplishment 90 % of the whole project.
-
+(It was made for fun and acquiring more knowledge about Flutter framework)
 ## Tools
 - Flutter
 - Dart
-- BLoC State Management
 - Postman
 - Dio
 - Android Studio
