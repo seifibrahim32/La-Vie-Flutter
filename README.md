@@ -1,6 +1,5 @@
 # La Vie App for Orange Flutter Hackathon
-
-
+The project is deprecated and not considered as one of the main projects I worked on.
 ## Summary about the project
 
 The idea was given by Orange Digital Center - Zamalek Branch for Flutter Hackathon , It was implemented using Flutter
